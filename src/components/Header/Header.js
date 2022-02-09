@@ -1,9 +1,10 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 import HeaderWrapper from "./HeaderWrapper";
 
-const Header = () => {
+const Header = ({ ...props }) => {
   return (
     <HeaderWrapper className="pt-3">
       <div className="row">
@@ -16,14 +17,19 @@ const Header = () => {
         </div>
         <div className="col-6 ps-5">
           <form>
-            <input type="text" className="form-control" placeholder="Search" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              {...props}
+            />
           </form>
         </div>
         <div className="col-3">
-          <button className="btn">
+          <Link className="btn" {...props} to="/admin">
             <FontAwesomeIcon icon={faUser} className="me-2" />
-            Username
-          </button>
+            Admin Panel
+          </Link>
         </div>
       </div>
     </HeaderWrapper>

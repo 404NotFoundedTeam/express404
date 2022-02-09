@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import MyButton from "../../components/MainBtn/MainBtn";
 import { NavLink } from "react-router-dom";
 
 const Add = () => {

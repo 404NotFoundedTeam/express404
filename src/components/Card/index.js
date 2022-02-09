@@ -1,7 +1,5 @@
-import { faPen, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import SqButton from "../SqButton";
+import MyButton from "../MainBtn/MainBtn";
 import CardWrapper from "./WrapperCard";
 
 export default function Card({ img, title, price, edit, remove }) {
@@ -10,9 +8,9 @@ export default function Card({ img, title, price, edit, remove }) {
       <div className="img">
         <img src={img} alt="" className="img-fluid h-100" />
         <div className="img-overlay p-3 text-right">
-          <SqButton color="warning me-3" onClick={remove}>
+          <MyButton color=" me-3 styledBtn" title="Qo'shish" onClick={remove}>
             Qo'shish
-          </SqButton>
+          </MyButton>
         </div>
       </div>
       <div className="p-3 ">
