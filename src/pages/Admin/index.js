@@ -44,7 +44,7 @@ const Admin = () => {
           </li>
         </ul>
       </aside>
-      <main>
+      <main className="position-relative">
         <header className="d-flex shadow-sm align-items-center justify-content-between text-secondary">
           <FontAwesomeIcon className="header-icons" onClick={toggleAside} icon={faBars} />
           <FontAwesomeIcon className="header-icons" icon={faUser} />
