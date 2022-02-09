@@ -8,11 +8,13 @@ const Header = () => {
     <HeaderWrapper className="pt-3">
       <div className="row">
         <div className="col-3">
-          <img
-            src="https://express24.uz/img/header-logo.svg"
-            width="160px"
-            alt="express24"
-          />
+          <div className="d-flex justify-content-start align-items-center">
+            <img
+              src="https://express24.uz/img/header-logo.svg"
+              width="160px"
+              alt="express24"
+            />
+          </div>
         </div>
         <div className="col-6 ps-5">
           <form>

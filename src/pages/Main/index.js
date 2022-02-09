@@ -98,7 +98,7 @@ export default function Main() {
           console.log(ProductsValues, "ProductsValues");
           return (
             <div className="row mt-5" key={j}>
-              <h2 className="mb-3">{ProductsName}</h2>
+              <h2 className=" category">{ProductsName}</h2>
 
               {ProductsValues.map((item, index) => (
                 <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">

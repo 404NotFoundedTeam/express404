@@ -1,6 +1,5 @@
-
-import styled from 'styled-components';
-import { ModalUnstyled } from '@mui/base';
+import styled from "styled-components";
+import { ModalUnstyled } from "@mui/base";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -14,7 +13,7 @@ const StyledModal = styled(ModalUnstyled)`
   justify-content: center;
 `;
 
-const Backdrop = styled('div')`
+const Backdrop = styled("div")`
   z-index: -1;
   position: fixed;
   right: 0;
@@ -37,9 +36,7 @@ export default function Modal({ open, setOpen, children }) {
         BackdropComponent={Backdrop}
         className="row justifiy-content-center py-4"
       >
-        <div className='col-md-8 col-sm-8 col-11 col-lg-6'>
-          {children}
-        </div>
+        <div className="col-md-8 col-sm-8 col-11 col-lg-6">{children}</div>
       </StyledModal>
     </div>
   );
