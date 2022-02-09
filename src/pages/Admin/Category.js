@@ -25,7 +25,7 @@ const Category = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(submit)}>
-        <div className="row mb-5">
+        <div className="row mb-5 justify-content-center">
           <div className="col-md-10 mb-3">
             <input
               className="form-control w-100"
