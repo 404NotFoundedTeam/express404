@@ -28,6 +28,13 @@ export default function Main() {
       <main className="mt-4">
         <img src="/images/express.png" className="image-fluid" alt="express" />
       </main>
+      <div className="category d-flex align-items-center mt-5 container ">
+        {products.map((category, index) => (
+          <div className="px-4 py-3 rounded shadow mx-3">
+            {category.category}
+          </div>
+        ))}
+      </div>
       <Title title="Mahsulotlar" />
       <SqButton color="danger" onClick={() => navigate("add")}>
         <FontAwesomeIcon icon={faPlus} />

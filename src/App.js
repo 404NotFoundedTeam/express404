@@ -20,31 +20,37 @@ function App() {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
       title: "Modern Table Lamps 01",
       price: 100,
+      category: "Shashliklar",
     },
     {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
       title: "Modern Table Lamps 02",
       price: 200,
+      category: "Lagmon",
     },
     {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
       title: "Modern Table",
       price: 104.5,
+      category: "Shorva",
     },
     {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
       title: "Modern Table Lamps 01",
       price: 100,
+      category: "Shashliklar",
     },
     {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
       title: "Modern Table Lamps 02",
       price: 200,
+      category: "Shashliklar",
     },
     {
       img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
       title: "Modern Table",
       price: 104.5,
+      category: "Shashliklar",
     },
   ]);
 
@@ -56,19 +62,19 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route
             path="/add"
-            element={<ProductDetail title={"Qo'shish"} />}></Route>
+            element={<ProductDetail title={"Qo'shish"} />}
+          ></Route>
           <Route
             path="/edit/:id"
             element={<ProductDetail title={"O'zgartirish"} />}
           ></Route>
-          <Route path='/admin' element={<Admin />}>
+          <Route path="/admin" element={<Admin />}>
             <Route path="add" element={<Add />}>
               <Route path="meal" element={<Meal />} />
               <Route path="category" element={<Category />} />
             </Route>
             <Route path="order" element={<Order />} />
             <Route path="done" element={<Done />} />
-
           </Route>
         </Routes>
       </BrowserRouter>
