@@ -167,15 +167,14 @@ function App() {
 
   const [productsKorzina, setProductsKorzina] = useState([]);
 
-  const [orders, setOrders] = useState([
-    
-  ]);
+  const [orders, setOrders] = useState([]);
+  const [done, setDone] = useState([]);
 
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
       <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
         <CategoriesContext.Provider value={{ categories, setCategories }}>
-          <OrdersContext.Provider value={{ orders, setOrders }}>
+          <OrdersContext.Provider value={{ orders, setOrders, done, setDone }}>
             <GlobalStyle />
             <BrowserRouter>
               <Routes>

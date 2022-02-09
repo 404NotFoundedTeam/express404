@@ -1,11 +1,11 @@
-import { faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faArrowRightFromBracket, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "@mui/material";
 import { Button, ButtonGroup } from "@mui/material";
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import KorzinaContext from "../../contexts/korzinaContext";
-import { Controller } from "react-hook-form";
+import { useNavigate, Controller } from "react-router-dom";
 import OrdersContext from "../../contexts/OrdersContext";
 import userData from "../../Data/userData";
 
@@ -53,6 +53,9 @@ const KorzinaWrapper = styled.div`
 `;
 
 const Korzina = () => {
+
+  const navigate = useNavigate();
+
   const [sum, setSum] = useState(0);
   const { productsKorzina, setProductsKorzina } = useContext(KorzinaContext);
   const { orders, setOrders } = useContext(OrdersContext);
@@ -103,7 +106,10 @@ const Korzina = () => {
   return (
     <KorzinaWrapper>
       <div className="container py-5">
-        <h2 className={"fv-bold"}>Korzina</h2>
+        <div className="d-flex align-items-center justify-content-between">
+            <h2 className={"fv-bold me-2 mb-0"}>Korzina</h2>
+            <IconButton onClick={() => navigate("../")}><FontAwesomeIcon icon={faArrowRightFromBracket} /></IconButton>
+        </div>
         <div className="bodyKor row justify-content-center w-100">
           <div className="col-12 col-sm-10 col-lg-8">
             <div className="products py-5">
