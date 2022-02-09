@@ -1,13 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./containers/Header";
 import Main from "./pages/Main";
 import "./style/variables.scss";
 import GlobalStyle from "./style/GlobalStyle";
 import ProductsContext from "./contexts/ProductsContext";
 import { useState } from "react";
-import ProductDetail from "./pages/ProductDetail";
 import CategoriesContext from "./contexts/CategoriesContext";
+import Admin from "./pages/Admin";
+import Order from "./pages/Admin/Order";
+import Add from "./pages/Admin/Add";
+import Meal from "./pages/Admin/Meal";
+import Done from "./pages/Admin/Done";
+import Category from "./pages/Admin/Category";
 
 function App() {
   const [categories, setCategories] = useState([
@@ -65,18 +69,25 @@ function App() {
     <ProductsContext.Provider value={{ products, setProducts }}>
       <CategoriesContext.Provider value={{ categories, setCategories }}>
         <GlobalStyle />
-        <Header />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route
+            {/* <Route
               path="/add"
               element={<ProductDetail title={"Qo'shish"} />}
             ></Route>
             <Route
               path="/edit/:id"
               element={<ProductDetail title={"O'zgartirish"} />}
-            ></Route>
+            ></Route> */}
+            <Route path="/admin" element={<Admin />}>
+              <Route path="add" element={<Add />}>
+                <Route path="meal" element={<Meal />} />
+                <Route path="category" element={<Category />} />
+              </Route>
+              <Route path="order" element={<Order />} />
+              <Route path="done" element={<Done />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </CategoriesContext.Provider>

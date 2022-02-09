@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-import Title from "../../components/Title";
 import Wrapper from "./ProductDetailWrapper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoriesContext from "../../contexts/CategoriesContext";
-import Card from "../../components/Card";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
