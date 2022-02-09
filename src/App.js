@@ -13,6 +13,7 @@ import Add from "./pages/Admin/Add";
 import Meal from "./pages/Admin/Meal";
 import Done from "./pages/Admin/Done";
 import Category from "./pages/Admin/Category";
+import Korzina from "./pages/Kirzina";
 
 function App() {
   const [categories, setCategories] = useState([
@@ -70,6 +71,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
+              <Route path="/korzina" element={<Korzina/>}/>
               {/* <Route
               path="/add"
               element={<ProductDetail title={"Qo'shish"} />}

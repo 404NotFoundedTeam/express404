@@ -61,12 +61,13 @@ export default function Main() {
 
   return (      
     <Wrapper className="text-center container-fluid">
-      {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
+      {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} click = {() => navigate("korzina")} />}
       <Modal open={open} setOpen={setOpen}>
         <Choose
           data={chooseProduct}
           addProductToKorzina={addProductToKorzina}
           changeSoni={changeSoni}
+          setOpen={setOpen}
         />
       </Modal>
       <Header />
@@ -92,12 +93,14 @@ export default function Main() {
               {...item}
               edit={() => navigate(`edit/${index}`)}
               remove={() =>
-                addChoose({
+                {addChoose({
                   price: item.price,
                   soni: 1,
                   img: item.img,
-                  name: item.name,
+                  name: item.title,
+                  desc: item.desc || "",
                 })
+              }
               }
             />
           </div>
