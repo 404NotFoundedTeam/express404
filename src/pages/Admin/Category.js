@@ -16,7 +16,7 @@ const Category = () => {
     console.log(data.category);
     console.log(categories);
     t.push(data.category);
-    console.log(t);
+    // console.log(t);
     setCategories(t);
     console.log(categories);
     reset();
@@ -35,7 +35,7 @@ const Category = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="btn btn-dark styledBtn" type="submit">
+          <button className="btn styledBtn" type="submit">
             Saqlash
           </button>
         </div>
