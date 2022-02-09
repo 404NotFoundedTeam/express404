@@ -7,6 +7,12 @@ import GlobalStyle from "./style/GlobalStyle";
 import ProductsContext from "./contexts/ProductsContext";
 import { useState } from "react";
 import ProductDetail from "./pages/ProductDetail";
+import Admin from "./pages/Admin";
+import Order from "./pages/Admin/Order";
+import Add from "./pages/Admin/Add";
+import Meal from "./pages/Admin/Meal";
+import Done from "./pages/Admin/Done";
+import Category from "./pages/Admin/Category";
 
 function App() {
   const [products, setProducts] = useState([
@@ -45,18 +51,25 @@ function App() {
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
       <GlobalStyle />
-      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route
             path="/add"
-            element={<ProductDetail title={"Qo'shish"} />}
-          ></Route>
+            element={<ProductDetail title={"Qo'shish"} />}></Route>
           <Route
             path="/edit/:id"
             element={<ProductDetail title={"O'zgartirish"} />}
           ></Route>
+          <Route path='/admin' element={<Admin />}>
+            <Route path="add" element={<Add />}>
+              <Route path="meal" element={<Meal />} />
+              <Route path="category" element={<Category />} />
+            </Route>
+            <Route path="order" element={<Order />} />
+            <Route path="done" element={<Done />} />
+
+          </Route>
         </Routes>
       </BrowserRouter>
     </ProductsContext.Provider>
