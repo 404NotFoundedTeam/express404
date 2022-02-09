@@ -14,6 +14,17 @@ const Wrapper = styled.div`
       object-fit: cover;
     }
   }
+  .tabBtn {
+    background: rgb(240, 240, 240);
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.25s ease-in 0s;
+    text-decoration: none;
+    color: black;
+    &:hover {
+      background: #ffec00;
+    }
+  }
 `;
 
 export default Wrapper;

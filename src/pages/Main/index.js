@@ -62,11 +62,6 @@ export default function Main() {
   console.log(products);
   const newArr = Object.entries(products);
 
-  // newArr.map((mass) => {
-  //   const ProductsValues = mass[1];
-  //   const ProductName = mass[0];
-  // });
-
   return (
     <Wrapper className="text-center container">
       {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
@@ -78,7 +73,7 @@ export default function Main() {
         />
       </Modal>
       <Wrapper className="text-center container-fluid">
-        <Header />
+        <Header onChange={(e) => console.log(e.target.value)} />
         <main className="mt-4">
           <img
             src="/images/express.png"
@@ -92,13 +87,24 @@ export default function Main() {
           ))} */}
         </div>
 
+        <div className="d-flex row">
+          {newArr.map((item) => (
+            <a className=" tabBtn col-md-2 me-3" href={`#${item[0]}`}>
+              {item[0][0].toLocaleUpperCase() + item[0].slice(1).toLowerCase()}
+            </a>
+          ))}
+        </div>
+
         {newArr.map((mass, j) => {
           const ProductsValues = mass[1];
           const ProductsName = mass[0];
           console.log(ProductsValues, "ProductsValues");
           return (
-            <div className="row mt-5" key={j}>
-              <h2 className=" category">{ProductsName}</h2>
+            <div className="row mt-5" key={j} id={ProductsName}>
+              <h2 className="mb-3 text-start">
+                {ProductsName[0].toLocaleUpperCase() +
+                  ProductsName.slice(1).toLowerCase()}
+              </h2>
 
               {ProductsValues.map((item, index) => (
                 <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
@@ -111,7 +117,9 @@ export default function Main() {
                         price: item.price,
                         soni: 1,
                         img: item.img,
-                        name: item.name,
+                        name:
+                          item.name[0].toUppercase() +
+                          item.name.splice(1).lowercase(),
                       })
                     }
                   />

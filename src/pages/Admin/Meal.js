@@ -87,7 +87,7 @@ const Meal = () => {
         </div>
       </div>
       <div className="text-center">
-        <button className="btn styledBtn" type="submit">
+        <button className="btn styledBtn w-25 " type="submit">
           Saqlash
         </button>
       </div>

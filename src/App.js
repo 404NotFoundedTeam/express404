@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 import "./style/variables.scss";
 import GlobalStyle from "./style/GlobalStyle";
-import Header from "./components/Header/Header";
 import ProductsContext from "./contexts/ProductsContext";
 import KorzinaContext from "./contexts/korzinaContext";
 import { useState } from "react";
@@ -27,7 +26,33 @@ function App() {
   console.log(categories);
 
   const [products, setProducts] = useState({
-    Shashliklar: [
+    shashliklar: [
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
+        title: "Modern Table Lamps 02",
+        price: 200,
+        category: "shashlIklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table",
+        price: 104.5,
+        category: "Shashliklar",
+      },
+    ],
+    driNks: [
       {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
         title: "Modern Table Lamps 01",
@@ -53,33 +78,7 @@ function App() {
         category: "Shashliklar",
       },
     ],
-    Drinks: [
-      {
-        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-        title: "Modern Table Lamps 01",
-        price: 100,
-        category: "Shashliklar",
-      },
-      {
-        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-        title: "Modern Table Lamps 01",
-        price: 100,
-        category: "Shashliklar",
-      },
-      {
-        img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
-        title: "Modern Table Lamps 02",
-        price: 200,
-        category: "Shashliklar",
-      },
-      {
-        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-        title: "Modern Table",
-        price: 104.5,
-        category: "Shashliklar",
-      },
-    ],
-    Salats: [
+    salAts: [
       {
         img: "https://avatars.mds.yandex.net/i?id=043a3b4ec03a4ea8768d05caa7af13c2-3577053-images-thumbs&n=13",
         title: "Modern Table Lamps 01",
