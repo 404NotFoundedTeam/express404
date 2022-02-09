@@ -14,7 +14,7 @@ const TableRowWrapper = styled.div`
     border: 0.1px solid rgba(128, 128, 128, 0.2);
     transition: 0.2s;
     &:hover {
-      background: #FFDC03A6;
+      background: #FFEC00;
     }
   }
   input {
@@ -25,7 +25,7 @@ const TableRowWrapper = styled.div`
     font-size: 14px;
   }
   .done {
-    background: #FFDC03A6;
+    background: #FFEC00;
   }
 `
 

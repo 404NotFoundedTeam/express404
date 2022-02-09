@@ -1,5 +1,6 @@
+
 import styled from 'styled-components';
-import ModalUnstyled from '@mui/base/ModalUnstyled';
+import { ModalUnstyled } from '@mui/base/ModalUnstyled';
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;

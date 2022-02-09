@@ -14,6 +14,7 @@ import Add from "./pages/Admin/Add";
 import Meal from "./pages/Admin/Meal";
 import Done from "./pages/Admin/Done";
 import Category from "./pages/Admin/Category";
+import OrdersContext from "./contexts/OrdersContext";
 
 function App() {
   const [categories, setCategories] = useState([
@@ -134,24 +135,28 @@ function App() {
 
   const [productsKorzina, setProductsKorzina] = useState([]);
 
+  const [orders, setOrders] = useState([]);
+
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
       <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
         <CategoriesContext.Provider value={{ categories, setCategories }}>
-          <GlobalStyle />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/admin" element={<Admin />}>
-                <Route path="add" element={<Add />}>
-                  <Route path="meal" element={<Meal />} />
-                  <Route path="category" element={<Category />} />
+          <OrdersContext.Provider value={{ orders, setOrders }}>
+            <GlobalStyle />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Main />}></Route>
+                <Route path="/admin" element={<Admin />}>
+                  <Route path="add" element={<Add />}>
+                    <Route path="meal" element={<Meal />} />
+                    <Route path="category" element={<Category />} />
+                  </Route>
+                  <Route path="order" element={<Order />} />
+                  <Route path="done" element={<Done />} />
                 </Route>
-                <Route path="order" element={<Order />} />
-                <Route path="done" element={<Done />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+              </Routes>
+            </BrowserRouter>
+          </OrdersContext.Provider>
         </CategoriesContext.Provider>
       </KorzinaContext.Provider>
     </ProductsContext.Provider>
