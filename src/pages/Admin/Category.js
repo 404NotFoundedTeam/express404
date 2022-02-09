@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import CategoriesContext from "../../contexts/CategoriesContext";
+import ProductsContext from "../../contexts/ProductsContext";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 const Category = () => {
   const { categories, setCategories } = useContext(CategoriesContext);
+  const { products, setProducts } = useContext(ProductsContext);
 
   const navigate = useNavigate();
 
@@ -13,11 +15,15 @@ const Category = () => {
 
   const submit = (data) => {
     const t = [...categories];
+    const pOld = products;
     console.log(data.category);
     console.log(categories);
-    t.push(data.category);
-    // console.log(t);
+    const newCategory = data.category;
+    t.push(newCategory);
+    pOld[newCategory] = [];
+    console.log(t);
     setCategories(t);
+    setProducts(pOld);
     console.log(categories);
     reset();
     navigate("/admin");
