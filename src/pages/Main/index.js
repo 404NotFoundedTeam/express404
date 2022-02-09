@@ -7,6 +7,8 @@ import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
 import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+// import express from "../../../public/images/express.png";
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -21,7 +23,11 @@ export default function Main() {
   const navigate = useNavigate();
 
   return (
-    <Wrapper className="text-center container">
+    <Wrapper className="text-center container-fluid">
+      <Header />
+      <main className="mt-4">
+        <img src="/images/express.png" className="image-fluid" alt="express" />
+      </main>
       <Title title="Mahsulotlar" />
       <SqButton color="danger" onClick={() => navigate("add")}>
         <FontAwesomeIcon icon={faPlus} />

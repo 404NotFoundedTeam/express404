@@ -5,20 +5,25 @@ import HeaderWrapper from "./HeaderWrapper";
 
 const Header = () => {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className="pt-3">
       <div className="row">
-        <div className="col3">
-          <img src="https://express24.uz/img/header-logo.svg" alt="express24" />
+        <div className="col-3">
+          <img
+            src="https://express24.uz/img/header-logo.svg"
+            width="160px"
+            alt="express24"
+          />
         </div>
-        <div className="col-6">
+        <div className="col-6 ps-5">
           <form>
-            <input type="text" className="form-control" placeholder="search" />
+            <input type="text" className="form-control" placeholder="Search" />
           </form>
         </div>
-        <div className="col3">
-          <div></div>
-          <FontAwesomeIcon icon={faUser} />
-          <button className="btn">Username</button>
+        <div className="col-3">
+          <button className="btn">
+            <FontAwesomeIcon icon={faUser} className="me-2" />
+            Username
+          </button>
         </div>
       </div>
     </HeaderWrapper>
