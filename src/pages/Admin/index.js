@@ -1,14 +1,23 @@
-import { faBars, faCheck, faPlus, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faBars,
+  faCheck,
+  faPlus,
+  faSpinner,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AdminWrapper from "./AdminWrapper";
 
 const Admin = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  const active = pathname.split('/');
+  const active = pathname.split("/");
   function toggleAside() {
-    document.querySelector('#admin-aside').classList.toggle('d-none');
+    document.querySelector("#admin-aside").classList.toggle("d-none");
   }
   return (
     <AdminWrapper className="d-flex border">
@@ -16,29 +25,48 @@ const Admin = () => {
         <img src="https://express24.uz/img/header-logo.svg" alt="" />
         <ul className="list-unstyled">
           <li>
-            <Link className={`admin-link ${active.slice(-1) == 'order' ? 'active' : ''}`} to="order">
+            <Link
+              className={`admin-link ${
+                active.slice(-1) == "order" ? "active" : ""
+              }`}
+              to="order"
+            >
               <FontAwesomeIcon className="admin-list-icon" icon={faSpinner} />
               <div>
                 <p className="m-0 admin-list-title">Arizalar</p>
-                <p className="m-0 admin-list-subtitle">Yetib kelgan arizalarni kuzatishingiz mumkin</p>
+                <p className="m-0 admin-list-subtitle">
+                  Yetib kelgan arizalarni kuzatishingiz mumkin
+                </p>
               </div>
             </Link>
           </li>
           <li>
-            <Link className={`admin-link ${active.slice(-1) == 'done' ? 'active' : ''}`} to="done">
+            <Link
+              className={`admin-link ${
+                active.slice(-1) == "done" ? "active" : ""
+              }`}
+              to="done"
+            >
               <FontAwesomeIcon className="admin-list-icon" icon={faCheck} />
               <div>
                 <p className="m-0 admin-list-title">Yetkazilgan</p>
-                <p className="m-0 admin-list-subtitle">Yetkazilgan taomlar ro’yxati bilan tanishing</p>
+                <p className="m-0 admin-list-subtitle">
+                  Yetkazilgan taomlar ro’yxati bilan tanishing
+                </p>
               </div>
             </Link>
           </li>
           <li>
-            <Link className={`admin-link ${active.slice(-1) == 'add' ? 'active' : ''}`} to="add">
+            <Link
+              className={`admin-link ${active.includes("add") ? "active" : ""}`}
+              to="add"
+            >
               <FontAwesomeIcon className="admin-list-icon" icon={faPlus} />
               <div>
                 <p className="m-0 admin-list-title">Qo’shish</p>
-                <p className="m-0 admin-list-subtitle">Yangi kategoriya/taom qo’shish</p>
+                <p className="m-0 admin-list-subtitle">
+                  Yangi kategoriya/taom qo’shish
+                </p>
               </div>
             </Link>
           </li>
@@ -46,15 +74,24 @@ const Admin = () => {
       </aside>
       <main className="position-relative">
         <header className="d-flex shadow-sm align-items-center justify-content-between text-secondary">
-          <FontAwesomeIcon className="header-icons" onClick={toggleAside} icon={faBars} />
-          <FontAwesomeIcon className="header-icons" icon={faUser} />
+          <FontAwesomeIcon
+            className="header-icons"
+            onClick={toggleAside}
+            icon={faBars}
+          />
+          <IconButton onClick={() => navigate("../")}>
+            <FontAwesomeIcon
+              className="header-icons"
+              icon={faArrowRightFromBracket}
+            />
+          </IconButton>
         </header>
-        <section className="admin-main-content">
+        <section className="admin-main-content mt-3">
           <Outlet />
         </section>
       </main>
     </AdminWrapper>
   );
-}
+};
 
 export default Admin;

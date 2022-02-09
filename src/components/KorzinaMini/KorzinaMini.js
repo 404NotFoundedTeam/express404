@@ -5,7 +5,7 @@ import styled from "styled-components"
 function KorzinaMini ({soni, price, click}) {
     return(
         <KorzinaMiniWrapper className="row">
-            <div className="col-11 col-sm-10 col-md-8 col-xxl-6" onClick={() => {click(true)}}>
+            <div className="col-11 col-sm-10 col-md-8 col-xxl-6" onClick={() => {click()}}>
                 <h3 className="text-center"><FontAwesomeIcon icon={faCartPlus}/> Korzinangizda <bold>{soni}</bold> ta tovar bor, summa <bold>{price} sum</bold> </h3>
             </div>
         </KorzinaMiniWrapper>

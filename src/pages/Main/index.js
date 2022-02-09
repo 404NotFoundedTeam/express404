@@ -8,10 +8,10 @@ import ProductsContext from "../../contexts/ProductsContext";
 import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
 import KorzinaContext from "../../contexts/korzinaContext";
+import Header from "../../components/Header/Header";
 import KorzinaMini from "../../components/KorzinaMini/KorzinaMini";
 import Choose from "../../components/Choose";
 import Modal from "../../components/Modal";
-import Header from "../../components/Header/Header";
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -55,6 +55,7 @@ export default function Main() {
     setProductsKorzina((data) => [...data, obj]);
   };
   const addChoose = (data) => {
+    console.log("ADDDD", data )
     setChooseProduct(data);
     setOpen(true);
   };
@@ -64,12 +65,15 @@ export default function Main() {
 
   return (
     <Wrapper className="text-center container">
-      {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
+      {productsKorzina.length > 0 && (
+        <KorzinaMini {...korzinaMiniData} click={() => navigate("korzina")} />
+      )}
       <Modal open={open} setOpen={setOpen}>
         <Choose
           data={chooseProduct}
           addProductToKorzina={addProductToKorzina}
           changeSoni={changeSoni}
+          setOpen={setOpen}
         />
       </Modal>
       <Wrapper className="text-center container-fluid">
@@ -89,7 +93,7 @@ export default function Main() {
 
         <div className="d-flex row">
           {newArr.map((item) => (
-            <a className=" tabBtn col-md-2 me-3" href={`#${item[0]}`}>
+            <a className=" tabBtn col-md-2 me-3 mb-3" href={`#${item[0]}`}>
               {item[0][0].toLocaleUpperCase() + item[0].slice(1).toLowerCase()}
             </a>
           ))}
@@ -111,15 +115,12 @@ export default function Main() {
                   <Card
                     {...item}
                     key={index}
-                    edit={() => navigate(`edit/${index}`)}
                     remove={() =>
                       addChoose({
                         price: item.price,
                         soni: 1,
                         img: item.img,
-                        name:
-                          item.name[0].toUppercase() +
-                          item.name.splice(1).lowercase(),
+                        name: item.productName,
                       })
                     }
                   />

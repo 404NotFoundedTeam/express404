@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoriesContext from "../../contexts/CategoriesContext";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 const Meal = () => {
   <h1>Meal</h1>;
   const { products, setProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoriesContext);
-
-  // const params = useParams();
-  // console.log(params);
   const navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false)
 
   // const index = params.category;
 
@@ -20,27 +19,30 @@ const Meal = () => {
   });
 
   const submit = (data) => {
-    console.log(data);
     const t = products;
     const obj = {
-      title: data.title,
+      productName: data.title,
       price: data.price,
       img: data.img,
       description: data.description,
     };
     const category = data.category;
-    console.log(obj);
-    console.log(t, "t");
 
-    console.log(t[category]);
     t[category].push(obj);
     setProducts(t);
-    console.log(t);
-
-    navigate("/");
+    reset();
+    setIsSubmit(true);
+    setTimeout(() => {
+        setIsSubmit(false)
+    }, 1500)
   };
   return (
     <form onSubmit={handleSubmit(submit)}>
+      {isSubmit && <div className="row w-100 myAlert justify-content-center">
+                <div className="col-md-6 col-sm-8">
+                <Alert severity="success">Maxsulot muvaffaqqiyatli qo'shildi!</Alert>
+                </div>
+                </div>}
       <div className="row mb-5">
         <div className="col-md-6 mb-3">
           <input
@@ -68,6 +70,7 @@ const Meal = () => {
           <input
             className="form-control w-100"
             placeholder="Narxi"
+            type={"number"}
             {...register("price", { required: true })}
           ></input>
         </div>

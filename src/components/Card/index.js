@@ -2,7 +2,7 @@ import React from "react";
 import MyButton from "../MainBtn/MainBtn";
 import CardWrapper from "./WrapperCard";
 
-export default function Card({ img, title, price, edit, remove }) {
+export default function Card({ img, productName, price, remove }) {
   return (
     <CardWrapper className="h-100 d-flex flex-column">
       <div className="img">
@@ -14,7 +14,7 @@ export default function Card({ img, title, price, edit, remove }) {
         </div>
       </div>
       <div className="p-3 ">
-        <p className="title mt-4">{title}</p>
+        <p className="title mt-4">{productName}</p>
         <p className="price">${price}</p>
       </div>
     </CardWrapper>
