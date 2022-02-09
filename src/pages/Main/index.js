@@ -41,17 +41,17 @@ export default function Main() {
     setKerak((ref) => !ref);
   };
 
-  // useEffect(() => {
-  //   let sum = 0;
-  //   productsKorzina.map((item, i) => {
-  //     sum += item.soni * item.price;
-  //   });
-  //   const obj = {
-  //     price: sum,
-  //     soni: productsKorzina.length,
-  //   };
-  //   setKorzinaMiniData(obj);
-  // }, [productsKorzina]);
+  useEffect(() => {
+    let sum = 0;
+    productsKorzina.map((item, i) => {
+      sum += item.soni * item.price;
+    });
+    const obj = {
+      price: sum,
+      soni: productsKorzina.length,
+    };
+    setKorzinaMiniData(obj);
+  }, [productsKorzina]);
   const addProductToKorzina = (obj) => {
     setProductsKorzina((data) => [...data, obj]);
   };
@@ -79,34 +79,33 @@ export default function Main() {
             alt="express"
           />
         </main>
-        <div className="category d-flex align-items-center mt-5 container ">
+        <div className="category d-flex align-items-center my-5 container ">
           {categories.map((index) => (
             <div className="px-4 py-3 rounded shadow mx-3">{index}</div>
           ))}
         </div>
-        <Title title="Mahsulotlar" />
-        <SqButton color="danger" onClick={() => navigate("add")}>
-          <FontAwesomeIcon icon={faPlus} />
-        </SqButton>
 
-        <div className="row mt-5">
+        {/* <h2>{categories[0]}</h2> */}
+        {categories.map((item, i) => {
+          products.map((index, e) => {
+            if (item[i] == index.category)
+              console.log(item[i], "va", index.category);
+
+            return (
+              <div key={e} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <Card {...index} />
+              </div>
+            );
+          });
+        })}
+
+        {/* <div className="row mt-5">
           {products.map((item, index) => (
             <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-              <Card
-                {...item}
-                edit={() => navigate(`edit/${index}`)}
-                remove={() =>
-                  addChoose({
-                    price: item.price,
-                    soni: 1,
-                    img: item.img,
-                    name: item.name,
-                  })
-                }
-              />
+              <Card {...item} />
             </div>
           ))}
-        </div>
+        </div> */}
       </Wrapper>
     </Wrapper>
   );
