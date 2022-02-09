@@ -67,18 +67,17 @@ function App() {
       <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
         <CategoriesContext.Provider value={{ categories, setCategories }}>
           <GlobalStyle />
-          <Header />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
-              <Route
-                path="/add"
-                element={<ProductDetail title={"Qo'shish"} />}
-              ></Route>
-              <Route
-                path="/edit/:id"
-                element={<ProductDetail title={"O'zgartirish"} />}
-              ></Route>
+              {/* <Route
+              path="/add"
+              element={<ProductDetail title={"Qo'shish"} />}
+            ></Route>
+            <Route
+              path="/edit/:id"
+              element={<ProductDetail title={"O'zgartirish"} />}
+            ></Route> */}
               <Route path="/admin" element={<Admin />}>
                 <Route path="add" element={<Add />}>
                   <Route path="meal" element={<Meal />} />

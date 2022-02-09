@@ -7,15 +7,11 @@ import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
 import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import KorzinaContext from "../../contexts/korzinaContext";
+import Header from "../../components/Header/Header";
 import KorzinaMini from "../../components/KorzinaMini/KorzinaMini";
 import Choose from "../../components/Choose";
 import Modal from "../../components/Modal";
-=======
-import Header from "../../components/Header/Header";
-// import express from "../../../public/images/express.png";
->>>>>>> 298a13dd27ddd897c473b8e9af9f821a4987901e
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -63,9 +59,8 @@ export default function Main() {
     setOpen(true);
   };
 
-  return (
-<<<<<<< HEAD
-    <Wrapper className="text-center container">
+  return (      
+    <Wrapper className="text-center container-fluid">
       {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
       <Modal open={open} setOpen={setOpen}>
         <Choose
@@ -74,8 +69,6 @@ export default function Main() {
           changeSoni={changeSoni}
         />
       </Modal>
-=======
-    <Wrapper className="text-center container-fluid">
       <Header />
       <main className="mt-4">
         <img src="/images/express.png" className="image-fluid" alt="express" />
@@ -87,7 +80,6 @@ export default function Main() {
           </div>
         ))}
       </div>
->>>>>>> 298a13dd27ddd897c473b8e9af9f821a4987901e
       <Title title="Mahsulotlar" />
       <SqButton color="danger" onClick={() => navigate("add")}>
         <FontAwesomeIcon icon={faPlus} />
