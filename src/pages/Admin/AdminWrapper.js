@@ -28,12 +28,12 @@ const AdminWrapper = styled.section`
       padding: 15px;
       transition: 0.3s;
       &:hover {
-        background-color: #FFDC03A6;
+        background-color: #FFEC00;
       }
     }
 
     .active {
-      background-color: #FFDC03A6;
+      background-color: #FFEC00;
     }
 
     .admin-list-icon {
@@ -54,6 +54,10 @@ const AdminWrapper = styled.section`
     width: 100%;
     header {
       padding: 20px;
+      position: absolute;
+      top:0;
+      width: 100%;
+      background: white;
     }
   }
   .header-icons:hover {

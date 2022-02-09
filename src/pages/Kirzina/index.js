@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import KorzinaContext from "../../contexts/korzinaContext";
 import { Controller } from "react-hook-form";
+import OrdersContext from "../../contexts/OrdersContext";
+import userData from "../../Data/userData";
 
 const KorzinaWrapper = styled.div`
   height: 100vh;
@@ -44,36 +46,50 @@ const KorzinaWrapper = styled.div`
   .korzina-footer {
     width: 100%;
   }
-  .bodyKor{
-      flex: 1;
-      overflow-y: auto;
+  .bodyKor {
+    flex: 1;
+    overflow-y: auto;
   }
 `;
 
 const Korzina = () => {
-  const [kerak, setKerak] = useState(false);
   const [sum, setSum] = useState(0);
   const { productsKorzina, setProductsKorzina } = useContext(KorzinaContext);
-  console.log(productsKorzina)
+  const { orders, setOrders } = useContext(OrdersContext);
+  
+    const submitOrder = () => {
+        const order = {
+            "To'liq ismi": userData.fullName,
+            "Taomlar": {
+            },
+            "Telefon raqami": userData.phone,
+            "summasi": sum,
+        }
+        productsKorzina.map(item => order['Taomlar'][item.name] = item.soni) 
+
+        setOrders((data) => [...data, order])
+        alert("Zakaz qabul qilindi!")  
+        setProductsKorzina([]);
+    }
+
   const changeSoni = (isPlus, index) => {
     setProductsKorzina((data) => {
-      const t = data;
+      const t = [...data];
       if (isPlus) t[index].soni += 1;
-      else if (t[index].soni > 0) {
+      else if (t[index].soni > 1) {
         t[index].soni -= 1;
       }
       return t;
     });
-    setKerak((ref) => !ref);
   };
 
   const deletePro = (index) => {
     setProductsKorzina((data) => {
-      const t = data;
+      const t = [...data];
       t.splice(index, 1);
       return t;
     });
-    setKerak((ref) => !ref);
+    // setKerak((ref) => !ref);
   };
 
   useEffect(() => {
@@ -82,19 +98,19 @@ const Korzina = () => {
       summa += item.soni * item.price;
     });
     setSum(summa);
-  }, [kerak]);
+  }, [productsKorzina]);
 
   return (
     <KorzinaWrapper>
       <div className="container py-5">
-        <h2>Korzina</h2>
+        <h2 className={"fv-bold"}>Korzina</h2>
         <div className="bodyKor row justify-content-center w-100">
           <div className="col-12 col-sm-10 col-lg-8">
             <div className="products py-5">
               {productsKorzina.map((item, i) => (
                 <div
                   key={item.name + i}
-                  className="product row w-100 align-items-center mb-3"
+                  className="product p-3 rounder row w-100 align-items-center mb-4"
                 >
                   <div className="d-flex col-md-5 col-sm-6 col-lg-4 align-items-center">
                     <IconButton
@@ -145,7 +161,7 @@ const Korzina = () => {
           </div>
         </div>
 
-        <div className="korzina-footer row justify-content-center">
+        <div className="korzina-footer p-3 rounded bordered row justify-content-center">
           <div className="col-md-8 col-sm-10 col-11 col-xxl-6">
             <h4>Total: </h4>
             <div className="d-flex align-items-center justify-content-between w-100 py-3">
@@ -153,7 +169,13 @@ const Korzina = () => {
               <p>{sum} sum</p>
             </div>
             <div className="d-flex justify-content-center w-100 py-4">
-              <button disabled={productsKorzina.length <= 0} className="styledBtn">Buyurtma qilish</button>
+              <button
+                disabled={productsKorzina.length <= 0}
+                className="styledBtn"
+                onClick={submitOrder}
+              >
+                Buyurtma qilish
+              </button>
             </div>
           </div>
         </div>

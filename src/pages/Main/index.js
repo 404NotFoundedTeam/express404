@@ -59,9 +59,19 @@ export default function Main() {
     setOpen(true);
   };
 
-  return (      
-    <Wrapper className="text-center container-fluid">
-      {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} click = {() => navigate("korzina")} />}
+  console.log(products);
+  const newArr = Object.entries(products);
+
+  // newArr.map((mass) => {
+  //   const ProductsValues = mass[1];
+  //   const ProductName = mass[0];
+  // });
+
+  return (
+    <Wrapper className="text-center container">
+      {productsKorzina.length > 0 && (
+        <KorzinaMini {...korzinaMiniData} click={() => navigate("korzina")} />
+      )}
       <Modal open={open} setOpen={setOpen}>
         <Choose
           data={chooseProduct}
@@ -70,42 +80,50 @@ export default function Main() {
           setOpen={setOpen}
         />
       </Modal>
-      <Header />
-      <main className="mt-4">
-        <img src="/images/express.png" className="image-fluid" alt="express" />
-      </main>
-      <div className="category d-flex align-items-center mt-5 container ">
-        {products.map((category, index) => (
-          <div className="px-4 py-3 rounded shadow mx-3">
-            {category.category}
-          </div>
-        ))}
-      </div>
-      <Title title="Mahsulotlar" />
-      <SqButton color="danger" onClick={() => navigate("add")}>
-        <FontAwesomeIcon icon={faPlus} />
-      </SqButton>
+      <Wrapper className="text-center container-fluid">
+        <Header />
+        <main className="mt-4">
+          <img
+            src="/images/express.png"
+            className="image-fluid"
+            alt="express"
+          />
+        </main>
+        <div className="category d-flex align-items-center mt-5 container ">
+          {/* {products.map((category, index) => (
+            <div className="px-4 py-3 rounded shadow mx-3">{category}</div>
+          ))} */}
+        </div>
 
-      <div className="row mt-5">
-        {products.map((item, index) => (
-          <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <Card
-              {...item}
-              edit={() => navigate(`edit/${index}`)}
-              remove={() =>
-                {addChoose({
-                  price: item.price,
-                  soni: 1,
-                  img: item.img,
-                  name: item.title,
-                  desc: item.desc || "",
-                })
-              }
-              }
-            />
-          </div>
-        ))}
-      </div>
+        {newArr.map((mass, j) => {
+          const ProductsValues = mass[1];
+          const ProductsName = mass[0];
+          console.log(ProductsValues, "ProductsValues");
+          return (
+            <div className="row mt-5" key={j}>
+              <h2 className=" category">{ProductsName}</h2>
+
+              {ProductsValues.map((item, index) => (
+                <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+                  <Card
+                    {...item}
+                    key={index}
+                    edit={() => navigate(`edit/${index}`)}
+                    remove={() =>
+                      addChoose({
+                        price: item.price,
+                        soni: 1,
+                        img: item.img,
+                        name: item.productName,
+                      })
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </Wrapper>
     </Wrapper>
   );
 }

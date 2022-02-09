@@ -9,8 +9,6 @@ const Meal = () => {
   const { products, setProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoriesContext);
 
-  console.log(products);
-  console.log(categories);
   // const params = useParams();
   // console.log(params);
   const navigate = useNavigate();
@@ -22,10 +20,20 @@ const Meal = () => {
   });
 
   const submit = (data) => {
-    const t = [...products];
     console.log(data);
-    t.push(data);
-    console.log(t);
+    const t = products;
+    const obj = {
+      title: data.title,
+      price: data.price,
+      img: data.img,
+      description: data.description,
+    };
+    const category = data.category;
+    console.log(obj);
+    console.log(t, "t");
+
+    console.log(t[category]);
+    t[category].push(obj);
     setProducts(t);
     console.log(t);
 
@@ -79,7 +87,7 @@ const Meal = () => {
         </div>
       </div>
       <div className="text-center">
-        <button className="btn btn-dark styledBtn" type="submit">
+        <button className="btn styledBtn" type="submit">
           Saqlash
         </button>
       </div>
