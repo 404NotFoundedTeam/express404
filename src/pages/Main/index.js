@@ -7,15 +7,11 @@ import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
 import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import KorzinaContext from "../../contexts/korzinaContext";
 import KorzinaMini from "../../components/KorzinaMini/KorzinaMini";
 import Choose from "../../components/Choose";
 import Modal from "../../components/Modal";
-=======
 import Header from "../../components/Header/Header";
-// import express from "../../../public/images/express.png";
->>>>>>> 298a13dd27ddd897c473b8e9af9f821a4987901e
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -64,7 +60,6 @@ export default function Main() {
   };
 
   return (
-<<<<<<< HEAD
     <Wrapper className="text-center container">
       {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
       <Modal open={open} setOpen={setOpen}>
@@ -74,43 +69,46 @@ export default function Main() {
           changeSoni={changeSoni}
         />
       </Modal>
-=======
-    <Wrapper className="text-center container-fluid">
-      <Header />
-      <main className="mt-4">
-        <img src="/images/express.png" className="image-fluid" alt="express" />
-      </main>
-      <div className="category d-flex align-items-center mt-5 container ">
-        {products.map((category, index) => (
-          <div className="px-4 py-3 rounded shadow mx-3">
-            {category.category}
-          </div>
-        ))}
-      </div>
->>>>>>> 298a13dd27ddd897c473b8e9af9f821a4987901e
-      <Title title="Mahsulotlar" />
-      <SqButton color="danger" onClick={() => navigate("add")}>
-        <FontAwesomeIcon icon={faPlus} />
-      </SqButton>
+      <Wrapper className="text-center container-fluid">
+        <Header />
+        <main className="mt-4">
+          <img
+            src="/images/express.png"
+            className="image-fluid"
+            alt="express"
+          />
+        </main>
+        <div className="category d-flex align-items-center mt-5 container ">
+          {products.map((category, index) => (
+            <div className="px-4 py-3 rounded shadow mx-3">
+              {category.category}
+            </div>
+          ))}
+        </div>
+        <Title title="Mahsulotlar" />
+        <SqButton color="danger" onClick={() => navigate("add")}>
+          <FontAwesomeIcon icon={faPlus} />
+        </SqButton>
 
-      <div className="row mt-5">
-        {products.map((item, index) => (
-          <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <Card
-              {...item}
-              edit={() => navigate(`edit/${index}`)}
-              remove={() =>
-                addChoose({
-                  price: item.price,
-                  soni: 1,
-                  img: item.img,
-                  name: item.name,
-                })
-              }
-            />
-          </div>
-        ))}
-      </div>
+        <div className="row mt-5">
+          {products.map((item, index) => (
+            <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+              <Card
+                {...item}
+                edit={() => navigate(`edit/${index}`)}
+                remove={() =>
+                  addChoose({
+                    price: item.price,
+                    soni: 1,
+                    img: item.img,
+                    name: item.name,
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
+      </Wrapper>
     </Wrapper>
   );
 }
