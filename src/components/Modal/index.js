@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 
@@ -25,7 +24,7 @@ const Backdrop = styled('div')`
   -webkit-tap-highlight-color: transparent;
 `;
 
-export default function Modal({open, setOpen, children}) {
+export default function Modal({ open, setOpen, children }) {
   const handleClose = () => setOpen(false);
   return (
     <div>
@@ -38,7 +37,7 @@ export default function Modal({open, setOpen, children}) {
         className="row justifiy-content-center py-4"
       >
         <div className='col-md-8 col-sm-8 col-11 col-lg-6'>
-            {children}
+          {children}
         </div>
       </StyledModal>
     </div>

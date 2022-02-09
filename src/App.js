@@ -71,11 +71,9 @@ function App() {
       <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
         <CategoriesContext.Provider value={{ categories, setCategories }}>
           <GlobalStyle />
-          <Header />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
-
               <Route path="/admin" element={<Admin />}>
                 <Route path="add" element={<Add />}>
                   <Route path="meal" element={<Meal />} />
