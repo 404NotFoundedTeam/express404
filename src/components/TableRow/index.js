@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import OrdersContext from "../../contexts/OrdersContext";
 
 const TableRowWrapper = styled.div`
   background: #FFFCED;
@@ -17,9 +19,9 @@ const TableRowWrapper = styled.div`
       background: #FFEC00;
     }
   }
-  input {
+  input{
     background: transparent !important;
-    border:none !important;
+    border: none !important;
   }
   label {
     font-size: 14px;
@@ -27,14 +29,55 @@ const TableRowWrapper = styled.div`
   .done {
     background: #FFEC00;
   }
+  select {
+    box-shadow: none !important;
+    border: none !important;
+    background-color: transparent !important;
+  }
 `
 
 const TableRow = ({ orderDetail, done }) => {
+  let { done: orderDone, setDone, orders, setOrders } = useContext(OrdersContext);
+  function orderDelivery(status, detail) {
+    if (status) {
+      let curDone = [...orderDone];
+      let curOrders = [...orders];
+      curDone.splice(curDone.indexOf(detail), 1);
+      curOrders.push(detail);
+      setDone(curDone);
+      setOrders(curOrders);
+    } else {
+      let curDone = [...orderDone];
+      let curOrders = [...orders];
+      curOrders.splice(curOrders.indexOf(detail), 1);
+      curDone.push(detail);
+      setDone(curDone);
+      setOrders(curOrders);
+    }
+  }
+
   return (
     <TableRowWrapper className="row">
       {
         Object.entries(orderDetail).map(([label, info]) => {
-          if (label == 'holati') return;
+          if (typeof info == 'object') {
+            return (
+              <div className='col-lg-4 col-md-6 p-0' key={label}>
+                <div class="form-floating">
+                  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    {
+                      Object.entries(info).map(([meal, amount], i) => {
+                        return (
+                          <option value={meal}>{meal} - {amount} ta</option>
+                        )
+                      })
+                    }
+                  </select>
+                  <label for="floatingSelect">{label}</label>
+                </div>
+              </div>
+            )
+          }
           return (
             <div className='col-lg-4 col-md-6 p-0' key={label}>
               <div className="form-floating mb-3">
@@ -47,7 +90,7 @@ const TableRow = ({ orderDetail, done }) => {
         })
       }
       <div className='col-lg-4 col-md-6 p-0'>
-        <button className={`outlined-btn ${done ? 'done' : ''} `}>Yetkazildi</button>
+        <button onClick={() => orderDelivery(done, orderDetail)} className={`outlined-btn ${done ? 'done' : ''} `}>Yetkazildi</button>
       </div>
     </TableRowWrapper>
   );
