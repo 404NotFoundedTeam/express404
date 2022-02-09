@@ -2,6 +2,7 @@ import styled from "styled-components";
 import colors from "../../style/colors";
 
 const CardWrapper = styled.div`
+  transition: 0.2s;
   .img {
     position: relative;
     border-radius: 10px;
@@ -48,6 +49,9 @@ const CardWrapper = styled.div`
     font-weight: 600;
     font-size: 16px;
     color: rgba(40, 42, 48, 0.7);
+  }
+  &:hover {
+    transform: translatey(-12px);
   }
 `;
 
