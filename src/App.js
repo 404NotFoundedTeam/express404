@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 import "./style/variables.scss";
 import GlobalStyle from "./style/GlobalStyle";
-import Header from "./components/Header/Header";
 import ProductsContext from "./contexts/ProductsContext";
 import KorzinaContext from "./contexts/korzinaContext";
 import { useState } from "react";

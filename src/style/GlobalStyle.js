@@ -2,6 +2,9 @@ import { createGlobalStyle } from "styled-components";
 import colors from "./colors";
 
 const GlobalStyle = createGlobalStyle`
+html{
+    scroll-bar : smooth;
+}
     *{
         font-family: "Montserrat";
         ::-webkit-scrollbar {
@@ -23,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
   background: #555;
 }
     }    
+    .container{
+        max-width:1440px !important;
+    }
 
     .form-control{
         padding: 12px 20px;
@@ -49,16 +55,19 @@ const GlobalStyle = createGlobalStyle`
        padding: 10px 20px;
        border-radius: 10px;
        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+<<<<<<< HEAD
         border: none;
         outline: none;
 
+=======
+>>>>>>> 44bc32b79a600838c8226d2bf6ae1417dd50d9ae
        font-weight: 600;
        font-size: 20px;
         background: #FFEC00;
         color : black !important;
         text-decoration : none;
-
     }
+    
     .active{
         background: #FFEC00;
     }

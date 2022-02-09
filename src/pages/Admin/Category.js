@@ -31,8 +31,8 @@ const Category = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(submit)}>
-        <div className="row mb-5 justify-content-center">
-          <div className="col-md-10 mb-3">
+        <div className="row mb-5">
+          <div className="col-md-12 mb-3">
             <input
               className="form-control w-100"
               placeholder="Kategoriya nomi"
@@ -41,7 +41,7 @@ const Category = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="btn styledBtn" type="submit">
+          <button className="btn styledBtn w-25" type="submit">
             Saqlash
           </button>
         </div>
