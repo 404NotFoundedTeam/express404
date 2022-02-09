@@ -54,7 +54,7 @@ const AdminWrapper = styled.section`
     width: 100%;
     header {
       padding: 20px;
-      position: fixed;
+      position: absolute;
       top:0;
       width: 100%;
       background: white;
