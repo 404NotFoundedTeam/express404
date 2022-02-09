@@ -55,6 +55,7 @@ export default function Main() {
     setProductsKorzina((data) => [...data, obj]);
   };
   const addChoose = (data) => {
+    console.log("ADDDD", data )
     setChooseProduct(data);
     setOpen(true);
   };
@@ -114,15 +115,12 @@ export default function Main() {
                   <Card
                     {...item}
                     key={index}
-                    edit={() => navigate(`edit/${index}`)}
                     remove={() =>
                       addChoose({
                         price: item.price,
                         soni: 1,
                         img: item.img,
-                        name:
-                          item.name[0].toUppercase() +
-                          item.name.splice(1).lowercase(),
+                        name: item.productName,
                       })
                     }
                   />

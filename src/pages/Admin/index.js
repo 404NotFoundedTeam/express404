@@ -1,9 +1,11 @@
-import { faBars, faCheck, faPlus, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faBars, faCheck, faPlus, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AdminWrapper from "./AdminWrapper";
 
 const Admin = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
   const active = pathname.split('/');
@@ -47,7 +49,12 @@ const Admin = () => {
       <main className="position-relative">
         <header className="d-flex shadow-sm align-items-center justify-content-between text-secondary">
           <FontAwesomeIcon className="header-icons" onClick={toggleAside} icon={faBars} />
-          <FontAwesomeIcon className="header-icons" icon={faUser} />
+          <IconButton onClick={() => navigate("../")}>
+            <FontAwesomeIcon
+              className="header-icons"
+              icon={faArrowRightFromBracket}
+            />
+          </IconButton>
         </header>
         <section className="admin-main-content">
           <Outlet />

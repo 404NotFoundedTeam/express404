@@ -26,7 +26,6 @@ const Category = () => {
     setProducts(pOld);
     console.log(categories);
     reset();
-    navigate("/admin");
   };
   return (
     <div>
