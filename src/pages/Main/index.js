@@ -84,16 +84,18 @@ export default function Main() {
             <div className="px-4 py-3 rounded shadow mx-3">{index}</div>
           ))}
         </div>
-
-        {/* <h2>{categories[0]}</h2> */}
-        {categories.map((item, i) => {
-          products.map((index, e) => {
-            if (item[i] == index.category)
-              console.log(item[i], "va", index.category);
+        {categories.map((category, i) => {
+          <h2>{category}</h2>;
+          {
+            console.log(category);
+          }
+          products.map((product, e) => {
+            if (category == product.category)
+              console.log(category, "va", product.category);
 
             return (
               <div key={e} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <Card {...index} />
+                <Card {...product} />
               </div>
             );
           });

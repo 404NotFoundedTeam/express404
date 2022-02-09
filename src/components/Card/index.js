@@ -4,7 +4,7 @@ import React from "react";
 import SqButton from "../SqButton";
 import CardWrapper from "./WrapperCard";
 
-export default function Card({ img, title, price, edit, remove, categories }) {
+export default function Card({ img, title, price, edit, remove }) {
   return (
     <CardWrapper className="h-100 d-flex flex-column">
       <div className="img">
