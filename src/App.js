@@ -23,8 +23,16 @@ function App() {
     "Fruits",
     "Shashliklar",
   ]);
+  console.log(categories);
+
   const [products, setProducts] = useState({
     Shashliklar: [
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
       {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
         title: "Modern Table Lamps 01",
@@ -35,13 +43,21 @@ function App() {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
         title: "Modern Table Lamps 02",
         price: 200,
-        category: "Lagmon",
+        category: "Shashliklar",
       },
       {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
         title: "Modern Table",
         price: 104.5,
-        category: "Shorva",
+        category: "Shashliklar",
+      },
+    ],
+    Drinks: [
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
       },
       {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
@@ -51,6 +67,58 @@ function App() {
       },
       {
         img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
+        title: "Modern Table Lamps 02",
+        price: 200,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table",
+        price: 104.5,
+        category: "Shashliklar",
+      },
+    ],
+    Salats: [
+      {
+        img: "https://avatars.mds.yandex.net/i?id=043a3b4ec03a4ea8768d05caa7af13c2-3577053-images-thumbs&n=13",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
+        title: "Modern Table Lamps 02",
+        price: 200,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table",
+        price: 104.5,
+        category: "Shashliklar",
+      },
+    ],
+    Fruits: [
+      {
+        img: "https://avatars.mds.yandex.net/i?id=c9acfe9453bb7142cc47938454dcf578-5878560-images-thumbs&n=13",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://avatars.mds.yandex.net/i?id=c9acfe9453bb7142cc47938454dcf578-5878560-images-thumbs&n=13",
         title: "Modern Table Lamps 02",
         price: 200,
         category: "Shashliklar",

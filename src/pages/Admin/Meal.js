@@ -32,6 +32,7 @@ const Meal = () => {
     console.log(obj);
     console.log(t, "t");
 
+    console.log(t[category]);
     t[category].push(obj);
     setProducts(t);
     console.log(t);

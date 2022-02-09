@@ -59,6 +59,14 @@ export default function Main() {
     setOpen(true);
   };
 
+  console.log(products);
+  const newArr = Object.entries(products);
+
+  // newArr.map((mass) => {
+  //   const ProductsValues = mass[1];
+  //   const ProductName = mass[0];
+  // });
+
   return (
     <Wrapper className="text-center container">
       {productsKorzina.length > 0 && <KorzinaMini {...korzinaMiniData} />}
@@ -79,35 +87,39 @@ export default function Main() {
           />
         </main>
         <div className="category d-flex align-items-center mt-5 container ">
-          {products.map((category, index) => (
-            <div className="px-4 py-3 rounded shadow mx-3">
-              {category.category}
-            </div>
-          ))}
+          {/* {products.map((category, index) => (
+            <div className="px-4 py-3 rounded shadow mx-3">{category}</div>
+          ))} */}
         </div>
-        <Title title="Mahsulotlar" />
-        <SqButton color="danger" onClick={() => navigate("add")}>
-          <FontAwesomeIcon icon={faPlus} />
-        </SqButton>
 
-        <div className="row mt-5">
-          {products.map((item, index) => (
-            <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-              <Card
-                {...item}
-                edit={() => navigate(`edit/${index}`)}
-                remove={() =>
-                  addChoose({
-                    price: item.price,
-                    soni: 1,
-                    img: item.img,
-                    name: item.name,
-                  })
-                }
-              />
+        {newArr.map((mass, j) => {
+          const ProductsValues = mass[1];
+          const ProductsName = mass[0];
+          console.log(ProductsValues, "ProductsValues");
+          return (
+            <div className="row mt-5" key={j}>
+              <h2 className="mb-3">{ProductsName}</h2>
+
+              {ProductsValues.map((item, index) => (
+                <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+                  <Card
+                    {...item}
+                    key={index}
+                    edit={() => navigate(`edit/${index}`)}
+                    remove={() =>
+                      addChoose({
+                        price: item.price,
+                        soni: 1,
+                        img: item.img,
+                        name: item.name,
+                      })
+                    }
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </Wrapper>
     </Wrapper>
   );
