@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 import "./style/variables.scss";
 import GlobalStyle from "./style/GlobalStyle";
+import Header from "./components/Header/Header";
 import ProductsContext from "./contexts/ProductsContext";
 import KorzinaContext from "./contexts/korzinaContext";
 import { useState } from "react";
@@ -20,45 +21,48 @@ function App() {
     "Drinks",
     "Salats",
     "Fruits",
+    "Shashliklar",
   ]);
-  const [products, setProducts] = useState([
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-      title: "Modern Table Lamps 01",
-      price: 100,
-      category: "Shashliklar",
-    },
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
-      title: "Modern Table Lamps 02",
-      price: 200,
-      category: "Lagmon",
-    },
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-      title: "Modern Table",
-      price: 104.5,
-      category: "Shorva",
-    },
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-      title: "Modern Table Lamps 01",
-      price: 100,
-      category: "Shashliklar",
-    },
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
-      title: "Modern Table Lamps 02",
-      price: 200,
-      category: "Shashliklar",
-    },
-    {
-      img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
-      title: "Modern Table",
-      price: 104.5,
-      category: "Shashliklar",
-    },
-  ]);
+  const [products, setProducts] = useState({
+    Shashliklar: [
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
+        title: "Modern Table Lamps 02",
+        price: 200,
+        category: "Lagmon",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table",
+        price: 104.5,
+        category: "Shorva",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table Lamps 01",
+        price: 100,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/11/10-modern-lighting_modern-lighting-contemporary-table-lamp-lot75na-gllogrey22-light-design-louise-collection-brandvanegmond-471x421.jpg",
+        title: "Modern Table Lamps 02",
+        price: 200,
+        category: "Shashliklar",
+      },
+      {
+        img: "https://brandvanegmond.com/wp-content/uploads/2018/12/modern-table-lamps-contemporary-lighting-arthur-collection-art30n-brandvanegmond-471x575.jpg",
+        title: "Modern Table",
+        price: 104.5,
+        category: "Shashliklar",
+      },
+    ],
+  });
 
   const [productsKorzina, setProductsKorzina] = useState([]);
 
@@ -71,14 +75,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
-              <Route
-                path="/add"
-                element={<ProductDetail title={"Qo'shish"} />}
-              ></Route>
-              <Route
-                path="/edit/:id"
-                element={<ProductDetail title={"O'zgartirish"} />}
-              ></Route>
+
               <Route path="/admin" element={<Admin />}>
                 <Route path="add" element={<Add />}>
                   <Route path="meal" element={<Meal />} />
