@@ -10,7 +10,7 @@ const Meal = () => {
   const { products, setProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoriesContext);
   const navigate = useNavigate();
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false);
 
   // const index = params.category;
 
@@ -33,16 +33,20 @@ const Meal = () => {
     reset();
     setIsSubmit(true);
     setTimeout(() => {
-        setIsSubmit(false)
-    }, 1500)
+      setIsSubmit(false);
+    }, 1500);
   };
   return (
     <form onSubmit={handleSubmit(submit)}>
-      {isSubmit && <div className="row w-100 myAlert justify-content-center">
-                <div className="col-md-6 col-sm-8">
-                <Alert severity="success">Maxsulot muvaffaqqiyatli qo'shildi!</Alert>
-                </div>
-                </div>}
+      {isSubmit && (
+        <div className="row w-100 myAlert justify-content-center">
+          <div className="col-md-6 col-sm-8">
+            <Alert severity="success">
+              Maxsulot muvaffaqqiyatli qo'shildi!
+            </Alert>
+          </div>
+        </div>
+      )}
       <div className="row mb-5">
         <div className="col-md-6 mb-3">
           <input

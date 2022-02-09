@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const AdminWrapper = styled.section`
   min-height: 100vh;
   aside {
     min-width: 350px;
-    background: #FFFCED;
+    background: #fffced;
     padding: 20px 10px;
     img {
       width: 90%;
@@ -28,12 +28,12 @@ const AdminWrapper = styled.section`
       padding: 15px;
       transition: 0.3s;
       &:hover {
-        background-color: #FFEC00;
+        background-color: #ffec00;
       }
     }
 
     .active {
-      background-color: #FFEC00;
+      background-color: #ffec00;
     }
 
     .admin-list-icon {
@@ -55,7 +55,7 @@ const AdminWrapper = styled.section`
     header {
       padding: 20px;
       position: absolute;
-      top:0;
+      top: 0;
       width: 100%;
       background: white;
     }
@@ -67,6 +67,6 @@ const AdminWrapper = styled.section`
   .admin-main-content {
     padding: 20px;
   }
-`
+`;
 
 export default AdminWrapper;
