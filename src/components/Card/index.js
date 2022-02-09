@@ -13,9 +13,9 @@ export default function Card({ img, title, price, edit, remove }) {
           <SqButton color="warning me-3" onClick={edit}>
             <FontAwesomeIcon icon={faPencil} />
           </SqButton>
-          <SqButton color="danger" onClick={remove}>
+          {/* <SqButton color="danger" onClick={remove}>
             <FontAwesomeIcon icon={faTrash} />
-          </SqButton>
+          </SqButton> */}
         </div>
       </div>
       <div className="p-3 text-center">
