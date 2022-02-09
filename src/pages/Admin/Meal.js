@@ -70,6 +70,7 @@ const Meal = () => {
           <input
             className="form-control w-100"
             placeholder="Narxi"
+            type={"number"}
             {...register("price", { required: true })}
           ></input>
         </div>

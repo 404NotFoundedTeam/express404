@@ -93,7 +93,7 @@ export default function Main() {
 
         <div className="d-flex row">
           {newArr.map((item) => (
-            <a className=" tabBtn col-md-2 me-3" href={`#${item[0]}`}>
+            <a className=" tabBtn col-md-2 me-3 mb-3" href={`#${item[0]}`}>
               {item[0][0].toLocaleUpperCase() + item[0].slice(1).toLowerCase()}
             </a>
           ))}
