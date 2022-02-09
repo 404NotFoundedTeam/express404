@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
+import CategoriesContext from "../../contexts/CategoriesContext";
 import Card from "../../components/Card";
 import { useNavigate } from "react-router-dom";
 import KorzinaContext from "../../contexts/korzinaContext";
@@ -15,12 +16,12 @@ import Modal from "../../components/Modal";
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
+  const { categories, setCategories } = useContext(CategoriesContext);
   const { productsKorzina, setProductsKorzina } = useContext(KorzinaContext);
   const [korzinaMiniData, setKorzinaMiniData] = useState({});
   const [open, setOpen] = useState(false);
   const [chooseProduct, setChooseProduct] = useState({});
   const [kerak, setKerak] = useState(false);
-
   const navigate = useNavigate();
 
   const remove = (index) => {
@@ -55,7 +56,7 @@ export default function Main() {
     setProductsKorzina((data) => [...data, obj]);
   };
   const addChoose = (data) => {
-    console.log("ADDDD", data )
+    console.log("ADDDD", data);
     setChooseProduct(data);
     setOpen(true);
   };

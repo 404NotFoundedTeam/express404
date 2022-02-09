@@ -55,12 +55,9 @@ html{
        padding: 10px 20px;
        border-radius: 10px;
        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-<<<<<<< HEAD
         border: none;
         outline: none;
 
-=======
->>>>>>> 44bc32b79a600838c8226d2bf6ae1417dd50d9ae
        font-weight: 600;
        font-size: 20px;
         background: #FFEC00;
