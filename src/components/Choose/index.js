@@ -59,6 +59,7 @@ const ChooseWrapper = styled.div`
   .styledBtn {
     margin-top: 30px;
     width: 100%;
+    font-size: 12px !important;
   }
 `;
 
