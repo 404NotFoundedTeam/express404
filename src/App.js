@@ -13,7 +13,8 @@ import Add from "./pages/Admin/Add";
 import Meal from "./pages/Admin/Meal";
 import Done from "./pages/Admin/Done";
 import Category from "./pages/Admin/Category";
-
+import Header from "./components/Header/Header";
+import ProductDetail from "../src/pages/ProductDetail/index";
 function App() {
   const [categories, setCategories] = useState([
     "Foods",
@@ -67,7 +68,7 @@ function App() {
       <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
         <CategoriesContext.Provider value={{ categories, setCategories }}>
           <GlobalStyle />
-          <Header />
+          {/* <Header /> */}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
