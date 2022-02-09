@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import "./style/variables.scss";
 import GlobalStyle from "./style/GlobalStyle";
 import ProductsContext from "./contexts/ProductsContext";
+import KorzinaContext from "./contexts/korzinaContext";
 import { useState } from "react";
 import CategoriesContext from "./contexts/CategoriesContext";
 import Admin from "./pages/Admin";
@@ -59,32 +60,37 @@ function App() {
     },
   ]);
 
+  const [productsKorzina, setProductsKorzina] = useState([]);
+
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
-      <CategoriesContext.Provider value={{ categories, setCategories }}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Main />}></Route>
-            {/* <Route
-              path="/add"
-              element={<ProductDetail title={"Qo'shish"} />}
-            ></Route>
-            <Route
-              path="/edit/:id"
-              element={<ProductDetail title={"O'zgartirish"} />}
-            ></Route> */}
-            <Route path="/admin" element={<Admin />}>
-              <Route path="add" element={<Add />}>
-                <Route path="meal" element={<Meal />} />
-                <Route path="category" element={<Category />} />
+      <KorzinaContext.Provider value={{ productsKorzina, setProductsKorzina }}>
+        <CategoriesContext.Provider value={{ categories, setCategories }}>
+          <GlobalStyle />
+          <Header />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Main />}></Route>
+              <Route
+                path="/add"
+                element={<ProductDetail title={"Qo'shish"} />}
+              ></Route>
+              <Route
+                path="/edit/:id"
+                element={<ProductDetail title={"O'zgartirish"} />}
+              ></Route>
+              <Route path="/admin" element={<Admin />}>
+                <Route path="add" element={<Add />}>
+                  <Route path="meal" element={<Meal />} />
+                  <Route path="category" element={<Category />} />
+                </Route>
+                <Route path="order" element={<Order />} />
+                <Route path="done" element={<Done />} />
               </Route>
-              <Route path="order" element={<Order />} />
-              <Route path="done" element={<Done />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </CategoriesContext.Provider>
+            </Routes>
+          </BrowserRouter>
+        </CategoriesContext.Provider>
+      </KorzinaContext.Provider>
     </ProductsContext.Provider>
   );
 }
