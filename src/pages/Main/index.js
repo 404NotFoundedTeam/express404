@@ -13,6 +13,7 @@ import Header from "../../components/Header/Header";
 import KorzinaMini from "../../components/KorzinaMini/KorzinaMini";
 import Choose from "../../components/Choose";
 import Modal from "../../components/Modal";
+import Footer from "../../components/footer/Footer";
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -131,6 +132,7 @@ export default function Main() {
           );
         })}
       </Wrapper>
+      <Footer />
     </Wrapper>
   );
 }
