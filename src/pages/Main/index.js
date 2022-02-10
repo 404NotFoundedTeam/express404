@@ -103,7 +103,6 @@ export default function Main() {
         {newArr.map((mass, j) => {
           const ProductsValues = mass[1];
           const ProductsName = mass[0];
-          console.log(ProductsValues, "ProductsValues");
           return (
             <div className="row mt-5" key={j} id={ProductsName}>
               <h2 className="mb-3 text-start">

@@ -8,7 +8,7 @@ const Choose = ({ data, addProductToKorzina, changeSoni, setOpen }) => (
         <img className="img-fluid w-100" src={data.img} alt={data.name} />
       </div>
       <div className="col-sm-6 d-flex flex-column justify-content-between">
-        <div className="content">
+
           <h3>{data.name}</h3>
           <p>{data.desc}</p>
         </div>
@@ -51,7 +51,6 @@ const Choose = ({ data, addProductToKorzina, changeSoni, setOpen }) => (
           </button>
         </div>
       </div>
-    </div>
   </ChooseWrapper>
 );
 
@@ -61,6 +60,6 @@ const ChooseWrapper = styled.div`
     width: 100%;
     font-size: 12px !important;
   }
-`;
+`
 
 export default Choose;
