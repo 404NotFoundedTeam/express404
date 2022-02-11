@@ -6,7 +6,7 @@ import HeaderWrapper from "./HeaderWrapper";
 
 const Header = ({ ...props }) => {
   return (
-    <HeaderWrapper className="pt-3">
+    <HeaderWrapper className="pt-3 container">
       <div className="row">
         <div className="col-3">
           <div className="d-flex justify-content-start align-items-center">

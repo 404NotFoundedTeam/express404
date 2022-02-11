@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import AlertMini from "../../components/Alert";
+import { pushProduct } from "../../firebase/functions";
 
 const Meal = () => {
   <h1>Meal</h1>;
-  const { products, setProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoriesContext);
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
@@ -20,17 +20,13 @@ const Meal = () => {
   });
 
   const submit = (data) => {
-    const t = products;
     const obj = {
       productName: data.title,
       price: data.price,
       img: data.img,
       description: data.description,
     };
-    const category = data.category;
-
-    t[category].push(obj);
-    setProducts(t);
+    pushProduct(data.category, obj);
     reset();
     setIsSubmit(true);
   };

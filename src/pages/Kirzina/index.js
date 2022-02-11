@@ -8,6 +8,7 @@ import KorzinaContext from "../../contexts/korzinaContext";
 import { useNavigate, Controller } from "react-router-dom";
 import OrdersContext from "../../contexts/OrdersContext";
 import userData from "../../Data/userData";
+import Header from "../../components/Header/Header";
 
 const KorzinaWrapper = styled.div`
   height: 100vh;
@@ -50,28 +51,50 @@ const KorzinaWrapper = styled.div`
     flex: 1;
     overflow-y: auto;
   }
+  .product{
+    border-bottom: 2px solid #f1f1f1;
+    .name{
+      text-transform: capitalize;
+    }
+  }
+  form{
+    label{
+      margin-bottom: 20px;
+      display: block;
+    }
+    textarea{
+      width: 100%;
+      border: 2px solid #f1f1f1;
+      padding: 10px;
+      font-size: 18px;
+      height: 200px;
+      outline: none;
+      resize: none;
+    }
+  }
 `;
 
 const Korzina = () => {
-
   const navigate = useNavigate();
 
   const [sum, setSum] = useState(0);
   const { productsKorzina, setProductsKorzina } = useContext(KorzinaContext);
   const { orders, setOrders } = useContext(OrdersContext);
-  
+  const [comment, setComment] = useState("");  
     const submitOrder = () => {
         const order = {
             "To'liq ismi": userData.fullName,
             "Taomlar": {
             },
+            "Izoh": comment,
             "Telefon raqami": userData.phone,
             "summasi": sum,
         }
         productsKorzina.map(item => order['Taomlar'][item.name] = item.soni) 
 
         setOrders((data) => [...data, order])
-        alert("Zakaz qabul qilindi!")  
+        alert("Zakaz qabul qilindi!")
+        navigate("../")  
         setProductsKorzina([]);
     }
 
@@ -107,7 +130,7 @@ const Korzina = () => {
     <KorzinaWrapper>
       <div className="container py-5">
         <div className="d-flex align-items-center justify-content-between">
-            <h2 className={"fv-bold me-2 mb-0"}>Korzina</h2>
+            <h3 style={{fontWeight: "700"}} className={"fv-bold me-2 mb-0"}>Sizning Korzinangiz</h3>
             <IconButton onClick={() => navigate("../")}><FontAwesomeIcon icon={faArrowRightFromBracket} /></IconButton>
         </div>
         <div className="bodyKor row justify-content-center w-100">
@@ -134,8 +157,8 @@ const Korzina = () => {
                   </div>
                   <div className="col-md-7 col-sm-6 col-lg-8 d-flex justify-content-between align-items-center">
                     <div className="product-info">
-                      <p className="name">{item.name}</p>
-                      <h3 className="summa">{item.price} sum</h3>
+                      <h5 className="name">{item.name}</h5>
+                      <h4 className="summa">{item.price} sum</h4>
                     </div>
                     <div className="btns">
                       <ButtonGroup
@@ -164,11 +187,20 @@ const Korzina = () => {
                 </div>
               ))}
             </div>
+
+            <form>
+              <label for={"comment"}>Buyurtma uchun izox: </label>
+              <textarea onChange={(e) => {
+                setComment(e.target.value)
+              }} id='comment' className="rounded"></textarea>
+            </form>
           </div>
         </div>
 
+
+
         <div className="korzina-footer p-3 rounded bordered row justify-content-center">
-          <div className="col-md-8 col-sm-10 col-11 col-xxl-6">
+          <div className="col-md-6 col-sm-8 col-11 col-xxl-4">
             <h4>Total: </h4>
             <div className="d-flex align-items-center justify-content-between w-100 py-3">
               <p>Jami summa: </p>
