@@ -1,11 +1,14 @@
-import React from "react";
+import * as React from "react";
+import { SnackbarProvider, useSnackbar } from "notistack";
 
-export default function AlertMine() {
-  return (
-    <div className="row w-100 myAlert justify-content-center">
-      <div className="col-md-6 col-sm-8">
-        <Alert severity="success">{text}</Alert>
-      </div>
-    </div>
-  );
+export default function AlertMini({ text, isSubmit }) {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariant = (variant) => () => {
+    enqueueSnackbar(text, variant);
+  };
+  if (isSubmit) {
+    handleClickVariant("success");
+  }
+  return <SnackbarProvider maxSnack={3} />;
 }

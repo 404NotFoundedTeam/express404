@@ -1,6 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 import { ModalUnstyled } from "@mui/base";
+import { IconButton } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -12,6 +16,17 @@ const StyledModal = styled(ModalUnstyled)`
   display: flex;
   align-items: center;
   justify-content: center;
+  .times{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+  }
 `;
 
 const Backdrop = styled("div")`
@@ -25,8 +40,14 @@ const Backdrop = styled("div")`
   -webkit-tap-highlight-color: transparent;
 `;
 
-export default function Modal({ open, setOpen, children }) {
-  const handleClose = () => setOpen(false);
+export default function Modal({ open, setOpen, children, isNavigate }) {
+  const navigate = useNavigate();
+  const handleClose = () => {
+    setOpen(false)
+    if(isNavigate){
+      navigate("../")
+    }
+  };
   return (
     <div>
       <StyledModal
@@ -35,9 +56,12 @@ export default function Modal({ open, setOpen, children }) {
         open={open}
         onClose={handleClose}
         BackdropComponent={Backdrop}
-        className="row justifiy-content-center py-4"
+        className="row justifiy-content-center py-5"
       >
-        <div className="col-md-8 col-sm-8 col-11 col-lg-6">{children}</div>
+        <div className="col-md-6 col-sm-8 col-11 col-lg-4 position-relative">
+          <IconButton className="times" onClick={handleClose}><FontAwesomeIcon icon={faTimes}/></IconButton>
+          {children}
+          </div>
       </StyledModal>
     </div>
   );

@@ -7,13 +7,14 @@ import SqButton from "../../components/SqButton";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoriesContext from "../../contexts/CategoriesContext";
 import Card from "../../components/Card";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import KorzinaContext from "../../contexts/korzinaContext";
 import Header from "../../components/Header/Header";
 import KorzinaMini from "../../components/KorzinaMini/KorzinaMini";
 import Choose from "../../components/Choose";
 import Modal from "../../components/Modal";
 import Footer from "../../components/footer/Footer";
+import SignIn from "../../Login/SignIn";
 
 export default function Main() {
   const { products, setProducts } = useContext(ProductsContext);
@@ -24,6 +25,7 @@ export default function Main() {
   const [chooseProduct, setChooseProduct] = useState({});
   const [kerak, setKerak] = useState(false);
   const navigate = useNavigate();
+  const [openKirish, setOpenKirish] = useState(true)
 
   const remove = (index) => {
     const t = [...products];
@@ -61,12 +63,10 @@ export default function Main() {
     setChooseProduct(data);
     setOpen(true);
   };
-
-  console.log(products);
-  const newArr = Object.entries(products);
+  const productsArr = Object.entries(products);
 
   return (
-    <Wrapper className="text-center container">
+    <Wrapper className="text-center">
       {productsKorzina.length > 0 && (
         <KorzinaMini {...korzinaMiniData} click={() => navigate("korzina")} />
       )}
@@ -78,7 +78,10 @@ export default function Main() {
           setOpen={setOpen}
         />
       </Modal>
-      <Wrapper className="text-center container-fluid">
+      <Routes>
+        <Route path="/signin" element={<Modal open={openKirish} setOpen={setOpenKirish} isNavigate={true}><SignIn/></Modal>}/>
+      </Routes>
+      <Wrapper className="text-center">
         <Header onChange={(e) => console.log(e.target.value)} />
         <main className="mt-4">
           <img
@@ -87,47 +90,45 @@ export default function Main() {
             alt="express"
           />
         </main>
-        <div className="category d-flex align-items-center mt-5 container ">
-          {/* {products.map((category, index) => (
-            <div className="px-4 py-3 rounded shadow mx-3">{category}</div>
-          ))} */}
+        <div className="container py-4">
+          <div className="d-flex row">
+            {categories.map((item) => (
+              <a className=" tabBtn col-md-2 me-3 mb-3" href={`#${item}`}>
+                {item[0].toLocaleUpperCase() +
+                  item.slice(1).toLowerCase()}
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div className="d-flex row">
-          {newArr.map((item) => (
-            <a className=" tabBtn col-md-2 me-3 mb-3" href={`#${item[0]}`}>
-              {item[0][0].toLocaleUpperCase() + item[0].slice(1).toLowerCase()}
-            </a>
-          ))}
-        </div>
-
-        {newArr.map((mass, j) => {
-          const ProductsValues = mass[1];
+        {productsArr.map((mass, j) => {
+          const ProductsValues = Object.values(mass[1]);
           const ProductsName = mass[0];
-          console.log(ProductsValues, "ProductsValues");
           return (
-            <div className="row mt-5" key={j} id={ProductsName}>
-              <h2 className="mb-3 text-start">
-                {ProductsName[0].toLocaleUpperCase() +
-                  ProductsName.slice(1).toLowerCase()}
-              </h2>
+            <div className="container">
+              <div className="row mt-5" key={j} id={ProductsName}>
+                <h2 className="mb-3 text-start">
+                  {ProductsName[0].toLocaleUpperCase() +
+                    ProductsName.slice(1).toLowerCase()}
+                </h2>
 
-              {ProductsValues.map((item, index) => (
-                <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <Card
-                    {...item}
-                    key={index}
-                    remove={() =>
-                      addChoose({
-                        price: item.price,
-                        soni: 1,
-                        img: item.img,
-                        name: item.productName,
-                      })
-                    }
-                  />
-                </div>
-              ))}
+                {ProductsValues.map((item, index) => (
+                  <div key={index} className="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <Card
+                      {...item}
+                      key={index}
+                      remove={() =>
+                        addChoose({
+                          price: item.price,
+                          soni: 1,
+                          img: item.img,
+                          name: item.productName,
+                        })
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           );
         })}
