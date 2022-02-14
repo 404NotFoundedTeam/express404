@@ -15,55 +15,33 @@ import Done from "./pages/Admin/Done";
 import Category from "./pages/Admin/Category";
 import Korzina from "./pages/Kirzina";
 import OrdersContext from "./contexts/OrdersContext";
-import { getCategories, getProducts } from "./firebase/functions";
-import UserContext from "./contexts/User";
-import SignIn from "./Login/SignIn";
-import Modal from "./components/Modal";
+import store from "./Redux";
+import { Provider } from "react-redux";
 
 function App() {
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState({});
-  const [userUid, setUserUid] = useState("");
-
-  useEffect(() => {
-    getCategories(setCategories);
-    getProducts(setProducts);
-  }, []);
-
-  const [productsKorzina, setProductsKorzina] = useState([]);
   const [orders, setOrders] = useState([]);
   const [done, setDone] = useState([]);
 
   return (
-    <UserContext.Provider value={{ userUid, setUserUid }}>
-      <ProductsContext.Provider value={{ products, setProducts }}>
-        <KorzinaContext.Provider
-          value={{ productsKorzina, setProductsKorzina }}
-        >
-          <CategoriesContext.Provider value={{ categories, setCategories }}>
-            <OrdersContext.Provider
-              value={{ orders, setOrders, done, setDone }}
-            >
-                            <GlobalStyle />
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/*" element={<Main />}></Route>
-                  <Route path="/korzina" element={<Korzina />} />
-                  <Route path="/admin" element={<Admin />}>
-                    <Route path="add" element={<Add />}>
-                      <Route path="meal" element={<Meal />} />
-                      <Route path="category" element={<Category />} />
-                    </Route>
-                    <Route path="order" element={<Order />} />
-                    <Route path="done" element={<Done />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </OrdersContext.Provider>
-          </CategoriesContext.Provider>
-        </KorzinaContext.Provider>
-      </ProductsContext.Provider>
-    </UserContext.Provider>
+    <Provider store={store}>
+      <OrdersContext.Provider value={{ orders, setOrders, done, setDone }}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/*" element={<Main />}></Route>
+            <Route path="/korzina" element={<Korzina />} />
+            <Route path="/admin" element={<Admin />}>
+              <Route path="add" element={<Add />}>
+                <Route path="meal" element={<Meal />} />
+                <Route path="category" element={<Category />} />
+              </Route>
+              <Route path="order" element={<Order />} />
+              <Route path="done" element={<Done />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </OrdersContext.Provider>
+    </Provider>
   );
 }
 

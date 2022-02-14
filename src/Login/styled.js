@@ -7,12 +7,6 @@ const LogInWrapper = styled.div`
       outline: none;
       background: none;
       width: 100%;
-      display: block !important;
-      &>div{
-        width: 100% !important;
-        display: block !important;
-        padding: 0 10px;
-      }
   }
   .styledBtn{
     display: block;
@@ -21,12 +15,10 @@ const LogInWrapper = styled.div`
     margin-top: 20px;
   }
   fieldset{
-    border: none ;
+    border: none;
     outline: none !important;
   }
   input{
-    width: 100% !important;
-    display: block;
     border-bottom: 2px solid #dedede;
   }
   a{

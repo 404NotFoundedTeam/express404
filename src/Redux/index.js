@@ -1,43 +1,27 @@
 const { createStore } = require("redux");
-
 const initialState = {
-  layout: {
-    theme: "light",
+  userData: {
+    uid: undefined,
+    userData: {},
   },
-  user: {
-      uid: NaN,
-  },
-  categories: {
-
-  },
-  prodcts: {
-
-  },
+  korzina: [],
+  categories: [],
+  products: {},
+  orders: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "TOGGLE_THEME":
-      return {
-        ...state,
-        layout: {
-          ...state.layout,
-          theme: state.layout.theme === "dark" ? "light" : "dark",
-        },
-      };
-    case "ADD_TASK":
-      return {
-        ...state,
-        tasks: [
-          ...state.tasks,
-          { id: setId(state.tasks), title: action.payload, completed: false },
-        ],
-      };
-    case "EDIT_TASK":
-      return {
-        ...state,
-        tasks: [...state.tasks],
-      };
+    case "GET_CATEGORIES":
+      return { ...state, categories: { ...action.payload } };
+    case "GET_PRODUCTS":
+      return { ...state, products: { ...action.payload } };
+    case "GET_ORDERS":
+      return { ...state, orders: { ...action.payload } };
+    case "HAVE_USER":
+      return { ...state, user: { ...state.user, uid: action.payload } };
+    case "USER_DATA":
+      return { ...state, userData: { ...action.payload } };
     default:
       return state;
   }

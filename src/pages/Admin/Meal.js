@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import AlertMini from "../../components/Alert";
 import { pushProduct } from "../../firebase/functions";
+import { useSelector } from "react-redux";
 
 const Meal = () => {
   <h1>Meal</h1>;
-  const { categories } = useContext(CategoriesContext);
+  const categories = Object.values(useSelector((store) => store.categories))
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
 

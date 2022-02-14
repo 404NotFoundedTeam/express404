@@ -1,44 +1,43 @@
 import { initializeApp } from "firebase/app";
 
-import { getDatabase, ref, push, set, get, onValue } from 'firebase/database';
-import {createUserWithEmailAndPassword,
-	onAuthStateChanged,
-	getAuth,
-	signInWithEmailAndPassword,
-	signOut,} from "firebase/auth"
+import { getDatabase, ref, push, set, get, onValue } from "firebase/database";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyB0ZTCRiLEYuyjE6MXkn5o9_vJJvyGKbr4",
-	authDomain: "express404.firebaseapp.com",
-	databaseURL: "https://express404-default-rtdb.firebaseio.com",
-	projectId: "express404",
-	storageBucket: "express404.appspot.com",
-	messagingSenderId: "619403393587",
-	appId: "1:619403393587:web:f8965b267c8ceecb0d4146",
-	measurementId: "G-HM3RYJ2W05"
-  };
-  
+  apiKey: "AIzaSyB0ZTCRiLEYuyjE6MXkn5o9_vJJvyGKbr4",
+  authDomain: "express404.firebaseapp.com",
+  databaseURL: "https://express404-default-rtdb.firebaseio.com",
+  projectId: "express404",
+  storageBucket: "express404.appspot.com",
+  messagingSenderId: "619403393587",
+  appId: "1:619403393587:web:f8965b267c8ceecb0d4146",
+  measurementId: "G-HM3RYJ2W05",
+};
+
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
-const auth = getAuth()
+const auth = getAuth();
 
 // //Auth
-// function createUser (userData, password) {
-// 	console.log(userData)
-// 	createUserWithEmailAndPassword(auth, userData.email, password)
-// 		.then((cred) => {
-// 			console.log(cred)
-// 			alert("Saytga muvaffaqqiyatli kirdingiz!")
-// 			const userData2 = userData;
-// 			userData2.uid = cred.user.uid;
-// 			isHaveUser(cred.user.uid);
-// 			userUid = cred.user.uid;
-// 			addUser(userData2)
-// 		})
-// 		.catch(e => {
-// 		})
-// }
+function createUser(userData, callback) {
+  createUserWithEmailAndPassword(auth, userData.email, userData.password)
+    .then((cred) => {
+      alert("Saytga muvaffaqqiyatli kirdingiz!");
+      const userData2 = { ...userData };
+      userData2.uid = cred.user.uid;
+      userData2.password = "";
+      userData2["role"] = "user";
+      addUser(userData2, callback);
+    })
+    .catch((e) => {});
+}
 // function signOutUser (callback = () => {}) {
 // 	signOut(auth)
 // 		.then(() => {
@@ -51,81 +50,145 @@ const auth = getAuth()
 // 		});
 // }
 
-// function signIn(dataUser) {
-// 	signInWithEmailAndPassword(auth, dataUser.email, dataUser.password)
-// 		.then((cred) => {
-// 			isHaveUser(cred.user.uid);
-// 			userUid = cred.user.uid;
-// 		})
-// 		.catch(() => {
-// 			alert("parol yoki email xato");
-// 		});
-// }
-// const isSignIn = (callback = () => {}) => {
-// 	console.log("sign in boshlandi")
-// 	onAuthStateChanged(auth, (user) => {
-// 		if (user) {
-// 			const uid = user.uid;
-// 			console.log("sign in bulgan")
-// 			callback(uid);
-// 		} else {
-// 			console.warn("no sign in");
-// 		}
-// 	});
-// };
-// isSignIn((uid) => {
-// 	isHaveUser(uid);
-// 	userUid = uid;
-// });
+function signIn(dataUser, callback) {
+  signInWithEmailAndPassword(auth, dataUser.email, dataUser.password)
+    .then((cred) => {
+      getUserData(cred.user.uid, callback);
+    })
+    .catch(() => {
+      alert("parol yoki email xato");
+    });
+}
 
+const isSignIn = (callback = () => {}) => {
+  console.log("sign in boshlandi");
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("sign in bulgan");
+      getUserData(user.uid, callback);
+    } else {
+      console.warn("no sign in");
+    }
+  });
+};
 
-// //User Functions
-// function addUser(userData){
-// 	set(ref(db, 'users/' + userData.uid), userData)
-// 		.then(() => {
-// 		})
-// 		.catch(err => console.log(err));
-// }
+//User Functions
+function addUser(userData, callback) {
+  set(ref(db, "users/" + userData.uid), userData)
+    .then(() => {
+      getUserData(userData.uid, callback);
+    })
+    .catch((err) => console.log(err));
+}
 // function updateUserData(data) {
 // 	set(ref(db, 'users/' + data.uid), data)
 // 		.then(() => {
 // 		})
 // 		.catch(err => console.log(err));
 // }
-
-// function getUserData(uid, callback){
-// 	onValue(ref(db, `users/${uid}`), (data) => {
-// 		callback(data.val() || {});
-// 	})
-// }
-
+const userKirdi = (role, callback) => {
+  switch (role) {
+    case "superAdmin":
+    case "admin":
+      getOrders(callback);
+      getDones(callback);
+      break;
+    case "yetkazuvchi":
+      getOrders(callback);
+      getDones(callback);
+      break;
+    case "user": break;
+  }
+};
+function getUserData(uid, callback) {
+  onValue(ref(db, `users/${uid}`), (data) => {
+    callback({ type: "USER_DATA", payload: data.val() || {} });
+    userKirdi(data.val().role, callback);
+  });
+}
 
 // Products
-function getCategories (callback) {
-	onValue(ref(db, `categories/`), (data) => {
-		callback(Object.values(data.val() || {}));
-	})
+
+// Get functions
+function getCategories(callback) {
+  onValue(ref(db, `categories/`), (data) => {
+    callback({
+      type: "GET_CATEGORIES",
+      payload: Object.values(data.val() || {}),
+    });
+  });
 }
-function getProducts (callback) {
-	onValue(ref(db, `products/`), (data) => {
-		callback(data.val() || {});
-	})
+function getProducts(callback) {
+  onValue(ref(db, `products/`), (data) => {
+    callback({ type: "GET_PRODUCTS", payload: data.val() || {} });
+  });
 }
 
+function getOrders(callback) {
+  onValue(ref(db, `orders/`), (data) => {
+    callback({ type: "GET_ORDERS", payload: data.val() || {} });
+  });
+}
+function getDones(callback) {
+  onValue(ref(db, `dones/`), (data) => {
+    callback({ type: "GET_DONES", payload: data.val() || {} });
+  });
+}
+
+// Push functioins
 const pushCategory = (category) => {
-	push(ref(db, `categories`), category)
-		.then(() => {
-			console.log("category qushildi")
-		})
-		.catch(err => console.log(err));
+  push(ref(db, `categories`), category)
+    .then(() => {})
+    .catch((err) => console.log(err));
+};
+
+function pushProduct(category, data) {
+  push(ref(db, `products/${category}/`), data)
+    .then(() => {})
+    .catch((err) => console.warn(err));
 }
 
-function pushProduct (category, data) {
-	push(ref(db, `products/${category}/`), data)
-		.then(() => {
-			console.log("data qushildi")
-		})
-		.catch(err => console.log(err));
+function pushOrder(data) {
+  push(ref(db, `orders/`), data)
+    .then(() => {})
+    .catch((err) => console.warn(err));
+}
+function pushDone(data) {
+  push(ref(db, `dones/`), data)
+    .then(() => {})
+    .catch((err) => console.warn(err));
 }
 
-export {pushProduct, createUserWithEmailAndPassword, auth, getProducts, pushCategory, getCategories}
+function pushProductToKorzina(data, uid) {
+  push(ref(db, `users/${uid}/korzina`), data)
+    .then(() => {})
+    .catch((err) => console.warn(err));
+}
+
+const clearKorzina = (uid) => {
+  set(ref(db, `users/${uid}/korzina`), {})
+    .then()
+    .catch((err) => console.log(err));
+};
+// SEt functions
+const setKorzinaProduct = (data, id, uid) => {
+  set(ref(db, `users/${uid}/korzina/${id}`), data)
+    .then(() => {})
+    .catch((err) => console.log(err));
+};
+
+export {
+  isSignIn,
+  signIn,
+  pushProduct,
+  createUser,
+  auth,
+  getProducts,
+  pushCategory,
+  getCategories,
+  pushProductToKorzina,
+  clearKorzina,
+  setKorzinaProduct,
+  getOrders,
+  pushOrder,
+};
