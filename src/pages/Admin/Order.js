@@ -1,43 +1,14 @@
 import TableRow from "../../components/TableRow";
 import { useContext } from "react";
 import OrdersContext from "../../contexts/OrdersContext";
-
-let ordersData = [
-  {
-    "To'liq ismi": "Nurmatov Abdurahim",
-    "Taom nomi": "osh",
-    Soni: 1,
-    "Telefon raqami": "+998 99 897 98 83",
-    summasi: 40000,
-  },
-  {
-    "To'liq ismi": "Nurmatov Abdurahim",
-    "Taom nomi": "osh",
-    Soni: 1,
-    "Telefon raqami": "+998 99 897 98 83",
-    summasi: 40000,
-  },
-  {
-    "To'liq ismi": "Nurmatov Abdurahim",
-    "Taom nomi": "osh",
-    Soni: 1,
-    "Telefon raqami": "+998 99 897 98 83",
-    summasi: 40000,
-  },
-  {
-    "To'liq ismi": "Nurmatov Abdurahim",
-    "Taom nomi": "osh",
-    Soni: 1,
-    "Telefon raqami": "+998 99 897 98 83",
-    summasi: 40000,
-  },
-];
+import { useSelector } from "react-redux";
 
 const Order = () => {
-  let { orders, setOrders } = useContext(OrdersContext);
+  const ordersObj = useSelector(state => state.orders);
+  const orders = Object.entries(ordersObj);
   let summa = 0;
   const calculateSum = () => {
-    orders.map((order) => (summa += order.summasi));
+    orders.map((order) => (summa += order[1].summasi));
   };
   calculateSum();
   return (
@@ -54,7 +25,7 @@ const Order = () => {
         style={{ overflow: "auto", overflowX: "hidden", marginLeft: "-15px" }}
       >
         {orders.map((order, i) => {
-          return <TableRow orderDetail={order} done={false} key={i} />;
+          return <TableRow orderDetail={order[1]} done={false} key={i} />;
         })}
       </div>
     </div>

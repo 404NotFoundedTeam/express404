@@ -1,4 +1,10 @@
-import { faArrowLeft, faArrowRight, faArrowRightFromBracket, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faArrowRightFromBracket,
+  faTimes,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "@mui/material";
 import { Button, ButtonGroup } from "@mui/material";
@@ -7,8 +13,9 @@ import { useContext, useState, useEffect } from "react";
 import KorzinaContext from "../../contexts/korzinaContext";
 import { useNavigate, Controller } from "react-router-dom";
 import OrdersContext from "../../contexts/OrdersContext";
-import userData from "../../Data/userData";
 import Header from "../../components/Header/Header";
+import { useSelector } from "react-redux";
+import { clearKorzina, pushOrder, setKorzinaProduct } from "../../firebase/functions";
 
 const KorzinaWrapper = styled.div`
   height: 100vh;
@@ -51,18 +58,18 @@ const KorzinaWrapper = styled.div`
     flex: 1;
     overflow-y: auto;
   }
-  .product{
+  .product {
     border-bottom: 2px solid #f1f1f1;
-    .name{
+    .name {
       text-transform: capitalize;
     }
   }
-  form{
-    label{
+  form {
+    label {
       margin-bottom: 20px;
       display: block;
     }
-    textarea{
+    textarea {
       width: 100%;
       border: 2px solid #f1f1f1;
       padding: 10px;
@@ -76,128 +83,133 @@ const KorzinaWrapper = styled.div`
 
 const Korzina = () => {
   const navigate = useNavigate();
+  const userData = useSelector(state => state.userData);
 
   const [sum, setSum] = useState(0);
-  const { productsKorzina, setProductsKorzina } = useContext(KorzinaContext);
-  const { orders, setOrders } = useContext(OrdersContext);
-  const [comment, setComment] = useState("");  
-    const submitOrder = () => {
-        const order = {
-            "To'liq ismi": userData.fullName,
-            "Taomlar": {
-            },
-            "Izoh": comment,
-            "Telefon raqami": userData.phone,
-            "summasi": sum,
-        }
-        productsKorzina.map(item => order['Taomlar'][item.name] = item.soni) 
+  const korzinaData = userData.korzina || {};
+  const korzina = Object.values(korzinaData);
+  const korzinaArr = Object.entries(korzinaData);
+  const [comment, setComment] = useState("");
+  const submitOrder = () => {
+    const order = {
+      "To'liq ismi": userData.fullName,
+      Taomlar: {},
+      Izoh: comment,
+      "Telefon raqami": userData.phone,
+      Summasi: sum,
+      Vaqti: new Date().toLocaleDateString() + " " +  new Date().toLocaleTimeString(),
+    };
+    korzina.map((item) => (order["Taomlar"][item.name] = item.soni));
 
-        setOrders((data) => [...data, order])
-        alert("Zakaz qabul qilindi!")
-        navigate("../")  
-        setProductsKorzina([]);
-    }
-
-  const changeSoni = (isPlus, index) => {
-    setProductsKorzina((data) => {
-      const t = [...data];
-      if (isPlus) t[index].soni += 1;
-      else if (t[index].soni > 1) {
-        t[index].soni -= 1;
-      }
-      return t;
-    });
+    pushOrder(order);
+    alert("Zakaz qabul qilindi!");
+    navigate("../");
+    clearKorzina({});
   };
 
-  const deletePro = (index) => {
-    setProductsKorzina((data) => {
-      const t = [...data];
-      t.splice(index, 1);
-      return t;
-    });
-    // setKerak((ref) => !ref);
+  const changeSoni = (isPlus, product, id) => {
+    console.log(id);
+    const t = {...product};
+    if (isPlus) t.soni += 1;
+    else if (t.soni > 1) {
+      t.soni -= 1;
+    }
+    setKorzinaProduct(t, id, userData.uid);
+  };
+
+  const deletePro = (id) => {
+    setKorzinaProduct({}, id, userData.uid);
   };
 
   useEffect(() => {
     let summa = 0;
-    productsKorzina.map((item, i) => {
-      summa += item.soni * item.price;
-    });
+    korzina.map((item) => (summa += item.soni * item.price));
     setSum(summa);
-  }, [productsKorzina]);
+  }, [korzinaData]);
 
   return (
     <KorzinaWrapper>
       <div className="container py-5">
         <div className="d-flex align-items-center justify-content-between">
-            <h3 style={{fontWeight: "700"}} className={"fv-bold me-2 mb-0"}>Sizning Korzinangiz</h3>
-            <IconButton onClick={() => navigate("../")}><FontAwesomeIcon icon={faArrowRightFromBracket} /></IconButton>
+          <h3 style={{ fontWeight: "700" }} className={"fv-bold me-2 mb-0"}>
+            Sizning Korzinangiz
+          </h3>
+          <IconButton onClick={() => navigate("../")}>
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          </IconButton>
         </div>
         <div className="bodyKor row justify-content-center w-100">
           <div className="col-12 col-sm-10 col-lg-8">
             <div className="products py-5">
-              {productsKorzina.map((item, i) => (
-                <div
-                  key={item.name + i}
-                  className="product p-3 rounder row w-100 align-items-center mb-4"
-                >
-                  <div className="d-flex col-md-5 col-sm-6 col-lg-4 align-items-center">
-                    <IconButton
-                      onClick={() => {
-                        deletePro(i);
-                      }}
-                      variant={"contained"}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </IconButton>
-                    <div className="img-box ms-2">
-                      <span className="soni">{item.soni}</span>
-                      <img src={item.img} alt={item.name} />
-                    </div>
-                  </div>
-                  <div className="col-md-7 col-sm-6 col-lg-8 d-flex justify-content-between align-items-center">
-                    <div className="product-info">
-                      <h5 className="name">{item.name}</h5>
-                      <h4 className="summa">{item.price} sum</h4>
-                    </div>
-                    <div className="btns">
-                      <ButtonGroup
-                        color={"warning"}
-                        size="small"
-                        aria-label="small button group"
+              {korzinaArr.map((data, i) => {
+                const item = data[1];
+                const id = data[0];
+                console.log("bu", id)
+                return (
+                  <div
+                    key={item.name + i}
+                    className="product p-3 rounder row w-100 align-items-center mb-4"
+                  >
+                    <div className="d-flex col-md-5 col-sm-6 col-lg-4 align-items-center">
+                      <IconButton
+                        onClick={() => {
+                          deletePro(id);
+                        }}
+                        variant={"contained"}
                       >
-                        <Button
-                          onClick={() => {
-                            changeSoni(false, i);
-                          }}
+                        <FontAwesomeIcon icon={faTimes} />
+                      </IconButton>
+                      <div className="img-box ms-2">
+                        <span className="soni">{item.soni}</span>
+                        <img src={item.img} alt={item.name} />
+                      </div>
+                    </div>
+                    <div className="col-md-7 col-sm-6 col-lg-8 d-flex justify-content-between align-items-center">
+                      <div className="product-info">
+                        <h5 className="name">{item.name}</h5>
+                        <h4 className="summa">{item.price} sum</h4>
+                      </div>
+                      <div className="btns">
+                        <ButtonGroup
+                          color={"warning"}
+                          size="small"
+                          aria-label="small button group"
                         >
-                          -
-                        </Button>
-                        <Button>{item.soni}</Button>
-                        <Button
-                          onClick={() => {
-                            changeSoni(true, i);
-                          }}
-                        >
-                          +
-                        </Button>
-                      </ButtonGroup>
+                          <Button
+                            onClick={() => {
+                              changeSoni(false, item, id);
+                            }}
+                          >
+                            -
+                          </Button>
+                          <Button>{item.soni}</Button>
+                          <Button
+                            onClick={() => {
+                              changeSoni(true, item, id);
+                            }}
+                          >
+                            +
+                          </Button>
+                        </ButtonGroup>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <form>
               <label for={"comment"}>Buyurtma uchun izox: </label>
-              <textarea onChange={(e) => {
-                setComment(e.target.value)
-              }} id='comment' className="rounded"></textarea>
+              <textarea
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+                id="comment"
+                className="rounded"
+              ></textarea>
             </form>
           </div>
         </div>
-
-
 
         <div className="korzina-footer p-3 rounded bordered row justify-content-center">
           <div className="col-md-6 col-sm-8 col-11 col-xxl-4">
@@ -208,7 +220,7 @@ const Korzina = () => {
             </div>
             <div className="d-flex justify-content-center w-100 py-4">
               <button
-                disabled={productsKorzina.length <= 0}
+                disabled={korzina.length <= 0}
                 className="styledBtn"
                 onClick={submitOrder}
               >

@@ -1,10 +1,15 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderWrapper from "./HeaderWrapper";
 
 const Header = ({ ...props }) => {
+  const navigate = useNavigate();
+
+  const userData = useSelector((state) => state.userData);
+
   return (
     <HeaderWrapper className="pt-3 container">
       <div className="row">
@@ -28,10 +33,17 @@ const Header = ({ ...props }) => {
           </form>
         </div>
         <div className="col-3">
-          <Link className="btn" {...props} to="/admin">
-            <FontAwesomeIcon icon={faUser} className="me-2" />
-            Admin Panel
-          </Link>
+          {(userData.uid && (
+            <button onClick={() => {navigate('/admin')}} className="styledBtn">
+              <FontAwesomeIcon icon="fa-solid fa-circle-user" />
+              {userData.fullName}
+            </button>
+          )) || (
+            <button className="styledBtn" onClick={() => {navigate('/signin')}}>
+              <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+              Kirish
+            </button>
+          )}
         </div>
       </div>
     </HeaderWrapper>

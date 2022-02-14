@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
   z-index: 9999999;
+  height: 100vh;
+  overflow-y: auto;
   right: 0;
   bottom: 0;
   top: 0;
