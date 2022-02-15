@@ -1,14 +1,14 @@
-import { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import TableRow from "../../components/TableRow";
-import OrdersContext from "../../contexts/OrdersContext";
 
 const Done = () => {
-  let { done, setDone } = useContext(OrdersContext);
-  let summa = 0;
-  const calculateSum = () => {
-    done.map((order) => (summa += order.summasi));
-  };
-  calculateSum();
+  const ordersObj = useSelector((state) => state.orders);
+  const orders = Object.entries(ordersObj);
+  let summa = orders.reduce((first, order) => {
+    if(!order[1].done) return first; 
+    return first + order[1]["Summasi"];
+  }, 0);
+
   return (
     <div className="d-flex flex-column pt-5" style={{ height: "93vh" }}>
       <h3 className="mt-2">Yetkazilgan</h3>
@@ -22,8 +22,9 @@ const Done = () => {
         className="flex-1 p-4"
         style={{ overflow: "auto", overflowX: "hidden", marginLeft: "-15px" }}
       >
-        {done.map((order, i) => {
-          return <TableRow orderDetail={order} done={true} key={i} />;
+        {orders.map((order, i) => {
+          if (!order[1].done) return;
+          return <TableRow order={order} key={i} />;
         })}
       </div>
     </div>

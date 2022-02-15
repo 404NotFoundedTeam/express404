@@ -1,13 +1,18 @@
 const { createStore } = require("redux");
+
 const initialState = {
-  userData: {
-    uid: undefined,
-    userData: {},
-  },
+  userData: {},
   korzina: [],
   categories: [],
   products: {},
   orders: {},
+  users: {},
+  rols: {
+    user: "user",
+    admin: "admin",
+    yetkazuvchi: "yetkazuvchi",
+    superAdmin: "superAdmin",
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,10 +23,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, products: { ...action.payload } };
     case "GET_ORDERS":
       return { ...state, orders: { ...action.payload } };
-    case "HAVE_USER":
-      return { ...state, user: { ...state.user, uid: action.payload } };
     case "USER_DATA":
       return { ...state, userData: { ...action.payload } };
+    case "GET_USERS":
+      return { ...state, users: { ...action.payload } };
     default:
       return state;
   }

@@ -6,7 +6,7 @@ function KorzinaMini ({soni, price, click}) {
     return(
         <KorzinaMiniWrapper className="row">
             <div className="col-11 col-sm-10 col-md-8 col-xxl-6" onClick={() => {click()}}>
-                <h3 className="text-center"><FontAwesomeIcon icon={faCartPlus}/> Korzinangizda <bold>{soni}</bold> ta tovar bor, summa <bold>{price} sum</bold> </h3>
+                <h3 className="text-center"><FontAwesomeIcon icon={faCartPlus}/> Korzinangizda <span>{soni}</span> ta tovar bor, summa <span>{price} sum</span> </h3>
             </div>
         </KorzinaMiniWrapper>
     )
@@ -32,7 +32,7 @@ const KorzinaMiniWrapper = styled.div`
             font-size: 20px;
             margin: 0;
         }
-        bold{
+        span{
             font-weight: 700;
         }
     }

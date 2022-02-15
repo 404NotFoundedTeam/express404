@@ -1,19 +1,13 @@
 import {
-  faArrowLeft,
-  faArrowRight,
   faArrowRightFromBracket,
   faTimes,
-  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "@mui/material";
 import { Button, ButtonGroup } from "@mui/material";
 import styled from "styled-components";
-import { useContext, useState, useEffect } from "react";
-import KorzinaContext from "../../contexts/korzinaContext";
-import { useNavigate, Controller } from "react-router-dom";
-import OrdersContext from "../../contexts/OrdersContext";
-import Header from "../../components/Header/Header";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clearKorzina, pushOrder, setKorzinaProduct } from "../../firebase/functions";
 
@@ -97,6 +91,7 @@ const Korzina = () => {
       Izoh: comment,
       "Telefon raqami": userData.phone,
       Summasi: sum,
+      done: false,
       Vaqti: new Date().toLocaleDateString() + " " +  new Date().toLocaleTimeString(),
     };
     korzina.map((item) => (order["Taomlar"][item.name] = item.soni));
@@ -104,7 +99,7 @@ const Korzina = () => {
     pushOrder(order);
     alert("Zakaz qabul qilindi!");
     navigate("../");
-    clearKorzina({});
+    clearKorzina(userData.uid);
   };
 
   const changeSoni = (isPlus, product, id) => {
