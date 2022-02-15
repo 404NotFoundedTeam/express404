@@ -46,7 +46,7 @@ const Admin = () => {
               </div>
             </Link>
           </li>
-          <li>
+          {role === rols.superAdmin && <li>
             <Link
               className={`admin-link ${
                 active.slice(-1) == "users" ? "active" : ""
@@ -61,12 +61,12 @@ const Admin = () => {
                 </p>
               </div>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {(role === rols.admin || role === rols.yetkazuvchi || role === rols.superAdmin) && <li>
             <Link
               className={`admin-link ${
                 active.slice(-1) == "order" ? "active" : ""
-              } ${role === rols.user ? "d-none" : ""}`}
+              }`}
               to="order"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faSpinner} />
@@ -77,12 +77,12 @@ const Admin = () => {
                 </p>
               </div>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {(role === rols.admin || role === rols.yetkazuvchi || role === rols.superAdmin) && <li>
             <Link
               className={`admin-link ${
                 active.slice(-1) == "done" ? "active" : ""
-              } ${role === rols.user ? "d-none" : ""}`}
+              }`}
               to="done"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faCheck} />
@@ -93,13 +93,11 @@ const Admin = () => {
                 </p>
               </div>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {(role === rols.admin || role === rols.superAdmin) && <li>
             <Link
               className={`admin-link ${
                 active.includes("add") ? "active" : ""
-              } ${
-                role === rols.user || role === rols.yetkazuvchi ? "d-none" : ""
               }`}
               to="add"
             >
@@ -111,7 +109,7 @@ const Admin = () => {
                 </p>
               </div>
             </Link>
-          </li>
+          </li>}
         </ul>
       </aside>
       <main className="position-relative">
