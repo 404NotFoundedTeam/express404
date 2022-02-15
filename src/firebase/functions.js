@@ -84,7 +84,6 @@ function addUser(userData, callback) {
 function setUserData(data, uid) {
   set(ref(db, `users/${uid}`), data)
     .then(() => {
-      alert("profil tahrirlandi");
     })
     .catch((err) => console.log(err));
 }
@@ -145,6 +144,7 @@ const pushCategory = (category) => {
     .then(() => {})
     .catch((err) => console.log(err));
 };
+
 
 function pushProduct(category, data) {
   push(ref(db, `products/${category}/`), data)
