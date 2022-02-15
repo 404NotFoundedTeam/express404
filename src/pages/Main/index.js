@@ -11,21 +11,14 @@ import Modal from "../../components/Modal";
 import Footer from "../../components/footer/Footer";
 import SignIn from "../../Login/SignIn";
 import SignUp from "../../Login/SignUp";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
-  getCategories,
-  getKorzina,
-  getOrders,
-  getProducts,
-  isSignIn,
   pushProductToKorzina,
 } from "../../firebase/functions";
 
 export default function Main() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const [korzinaMiniData, setKorzinaMiniData] = useState({});
   const [open, setOpen] = useState(false);
   const [chooseProduct, setChooseProduct] = useState({});
   const [openKirish, setOpenKirish] = useState(true);
@@ -33,14 +26,10 @@ export default function Main() {
   const categories = useSelector((state) => state.categories);
   const products = useSelector((state) => state.products);
   const userData = useSelector((state) => state.userData);
+
+  // console.log("baza===========", useSelector(state => state), "=============================")
   const korzinaObj = userData.korzina || {};
   const korzina = Object.values(korzinaObj);
-  useEffect(() => {
-    getCategories(dispatch);
-    getProducts(dispatch);
-    isSignIn(dispatch);
-  }, []);
-  console.log(userData.uid);
 
   const changeSoni = (isPlus) => {
     const obj = { ...chooseProduct };
@@ -105,7 +94,7 @@ export default function Main() {
         />
       </Routes>
       <Wrapper className="text-center">
-        <Header onChange={(e) => {}} />
+        <Header onChange={() => {}} />
         <main className="mt-4">
           <img
             src="/images/express.png"
@@ -116,7 +105,7 @@ export default function Main() {
         <div className="container py-4">
           <div className="d-flex row">
             {Object.values(categories).map((item, i) => (
-              <a className=" tabBtn col-md-2 me-3 mb-3" href={`#${item}`}>
+              <a key={i+item} className=" tabBtn col-md-2 me-3 mb-3" href={`#${item}`}>
                 {item[0].toLocaleUpperCase() + item.slice(1).toLowerCase()}
               </a>
             ))}

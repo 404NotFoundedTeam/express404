@@ -1,7 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const Add = () => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    navigate("category")
+  }, [])
   return (
     <div className="pt-5">
       <h3 className="mt-3">Qo'shish</h3>

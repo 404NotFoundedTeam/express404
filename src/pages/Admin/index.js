@@ -5,17 +5,23 @@ import {
   faPlus,
   faSpinner,
   faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AdminWrapper from "./AdminWrapper";
 
 const Admin = () => {
+  const userData = useSelector((state) => state.userData);
+  const role = userData.role;
+  const rols = useSelector((state) => state.rols);
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
   const active = pathname.split("/");
+
   function toggleAside() {
     document.querySelector("#admin-aside").classList.toggle("d-none");
   }
@@ -27,8 +33,40 @@ const Admin = () => {
           <li>
             <Link
               className={`admin-link ${
-                active.slice(-1) == "order" ? "active" : ""
+                active.slice(-1) == "admin" ? "active" : ""
               }`}
+              to=""
+            >
+              <FontAwesomeIcon className="admin-list-icon" icon={faUser} />
+              <div>
+                <p className="m-0 admin-list-title">Profile</p>
+                <p className="m-0 admin-list-subtitle">
+                  O'zingizning profilingizni kuzatib boring
+                </p>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`admin-link ${
+                active.slice(-1) == "users" ? "active" : ""
+              }`}
+              to="users"
+            >
+              <FontAwesomeIcon className="admin-list-icon" icon={faUsers} />
+              <div>
+                <p className="m-0 admin-list-title">Foydalanuvchilar</p>
+                <p className="m-0 admin-list-subtitle">
+                  Sayt foydalanuvchilari haqida malumot
+                </p>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`admin-link ${
+                active.slice(-1) == "order" ? "active" : ""
+              } ${role === rols.user ? "d-none" : ""}`}
               to="order"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faSpinner} />
@@ -44,7 +82,7 @@ const Admin = () => {
             <Link
               className={`admin-link ${
                 active.slice(-1) == "done" ? "active" : ""
-              }`}
+              } ${role === rols.user ? "d-none" : ""}`}
               to="done"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faCheck} />
@@ -58,7 +96,11 @@ const Admin = () => {
           </li>
           <li>
             <Link
-              className={`admin-link ${active.includes("add") ? "active" : ""}`}
+              className={`admin-link ${
+                active.includes("add") ? "active" : ""
+              } ${
+                role === rols.user || role === rols.yetkazuvchi ? "d-none" : ""
+              }`}
               to="add"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faPlus} />

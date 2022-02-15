@@ -15,7 +15,7 @@ const FooterInfo = () => {
             <div className="col-4">
               <div className="d-flex justify-content-between gap-2 ">
                 <div className="d-flex align-items-center flex-column">
-                  <p>Ⓒ 2021 Express 24</p>
+                  <p>Ⓒ 2021 Express404</p>
                   <div className="messengers d-flex align-items-center gap-3">
                     <a href="#">
                       <FontAwesomeIcon icon={faFacebook} />
@@ -43,9 +43,9 @@ const FooterInfo = () => {
         </div>
         <div className="col-5">
           <div className="d-flex justify-content-end">
-            <div class="dropdown">
+            <div className="dropdown">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                className="btn btn-secondary dropdown-toggle"
                 type="button"
                 id="dropdownMenu2"
                 data-bs-toggle="dropdown"
@@ -53,19 +53,19 @@ const FooterInfo = () => {
               >
                 Dropdown
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li>
-                  <button class="dropdown-item" type="button">
+                  <button className="dropdown-item" type="button">
                     English
                   </button>
                 </li>
                 <li>
-                  <button class="dropdown-item" type="button">
+                  <button className="dropdown-item" type="button">
                     Русский
                   </button>
                 </li>
                 <li>
-                  <button class="dropdown-item" type="button">
+                  <button className="dropdown-item" type="button">
                     O'zbekcha
                   </button>
                 </li>

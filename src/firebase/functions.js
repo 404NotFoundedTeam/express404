@@ -7,6 +7,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -24,7 +25,6 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
 const auth = getAuth();
-
 // //Auth
 function createUser(userData, callback) {
   createUserWithEmailAndPassword(auth, userData.email, userData.password)
@@ -38,17 +38,17 @@ function createUser(userData, callback) {
     })
     .catch((e) => {});
 }
-// function signOutUser (callback = () => {}) {
-// 	signOut(auth)
-// 		.then(() => {
-// 			callback(true);
-// 			console.log("user Chiqib ketti")
-// 		})
-// 		.catch(() => {
-// 			callback(false);
-// 			console.log("user chiqib keta olmadi")
-// 		});
-// }
+function signOutUser(callback = () => {}) {
+  signOut(auth)
+    .then(() => {
+      callback(true);
+      console.log("user Chiqib ketti");
+    })
+    .catch(() => {
+      callback(false);
+      console.log("user chiqib keta olmadi");
+    });
+}
 
 function signIn(dataUser, callback) {
   signInWithEmailAndPassword(auth, dataUser.email, dataUser.password)
@@ -80,30 +80,39 @@ function addUser(userData, callback) {
     })
     .catch((err) => console.log(err));
 }
-// function updateUserData(data) {
-// 	set(ref(db, 'users/' + data.uid), data)
-// 		.then(() => {
-// 		})
-// 		.catch(err => console.log(err));
-// }
+
+function setUserData(data, uid) {
+  set(ref(db, `users/${uid}`), data)
+    .then(() => {
+      alert("profil tahrirlandi");
+    })
+    .catch((err) => console.log(err));
+}
+
 const userKirdi = (role, callback) => {
   switch (role) {
     case "superAdmin":
+      getUsers(callback);
     case "admin":
       getOrders(callback);
-      getDones(callback);
       break;
     case "yetkazuvchi":
       getOrders(callback);
-      getDones(callback);
       break;
-    case "user": break;
+    case "user":
+      break;
   }
 };
 function getUserData(uid, callback) {
   onValue(ref(db, `users/${uid}`), (data) => {
     callback({ type: "USER_DATA", payload: data.val() || {} });
-    userKirdi(data.val().role, callback);
+    userKirdi(data.val().role || "user", callback);
+  });
+}
+
+function getUsers(callback) {
+  onValue(ref(db, `users/`), (data) => {
+    callback({ type: "GET_USERS", payload: data.val() || {} });
   });
 }
 
@@ -129,11 +138,6 @@ function getOrders(callback) {
     callback({ type: "GET_ORDERS", payload: data.val() || {} });
   });
 }
-function getDones(callback) {
-  onValue(ref(db, `dones/`), (data) => {
-    callback({ type: "GET_DONES", payload: data.val() || {} });
-  });
-}
 
 // Push functioins
 const pushCategory = (category) => {
@@ -150,11 +154,6 @@ function pushProduct(category, data) {
 
 function pushOrder(data) {
   push(ref(db, `orders/`), data)
-    .then(() => {})
-    .catch((err) => console.warn(err));
-}
-function pushDone(data) {
-  push(ref(db, `dones/`), data)
     .then(() => {})
     .catch((err) => console.warn(err));
 }
@@ -177,12 +176,34 @@ const setKorzinaProduct = (data, id, uid) => {
     .catch((err) => console.log(err));
 };
 
+function send() {
+  console.log(auth.currentUser)
+  sendEmailVerification(auth.currentUser)
+  .then(() => {
+    alert("yuborildi")
+  });
+}
+
+//
+function doneOrder(orderId, data, worker) {
+  console.log("edite done", data);
+  const data2 = { ...data };
+  if (worker) {
+    data2["done"] = !data2["done"]
+    data2.worker = worker;
+  }
+
+  console.log("edite done", data2);
+  set(ref(db, `orders/${orderId}`), data2)
+    .then(() => {})
+    .catch((err) => console.log(err));
+}
+
 export {
   isSignIn,
   signIn,
   pushProduct,
   createUser,
-  auth,
   getProducts,
   pushCategory,
   getCategories,
@@ -191,4 +212,8 @@ export {
   setKorzinaProduct,
   getOrders,
   pushOrder,
+  doneOrder,
+  setUserData,
+  signOutUser,
+  send,
 };

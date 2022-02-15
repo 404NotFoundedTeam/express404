@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import OrdersContext from "../../contexts/OrdersContext";
+import { doneOrder } from "../../firebase/functions";
 
 const TableRowWrapper = styled.div`
   background: #fffced;
@@ -36,37 +36,35 @@ const TableRowWrapper = styled.div`
   }
 `;
 
-const TableRow = ({ orderDetail, done }) => {
-  let {
-    done: orderDone,
-    setDone,
-    orders,
-    setOrders,
-  } = useContext(OrdersContext);
-  function orderDelivery(status, detail) {
-    if (status) {
-      let curDone = [...orderDone];
-      let curOrders = [...orders];
-      curDone.splice(curDone.indexOf(detail), 1);
-      curOrders.push(detail);
-      setDone(curDone);
-      setOrders(curOrders);
-    } else {
-      let curDone = [...orderDone];
-      let curOrders = [...orders];
-      curOrders.splice(curOrders.indexOf(detail), 1);
-      curDone.push(detail);
-      setDone(curDone);
-      setOrders(curOrders);
+const TableRow = ({ order }) => {
+  const userData = useSelector((state) => state.userData);
+  const rols = useSelector((state) => state.rols);
+
+  const orderDetail = order[1];
+  const orderId = order[0];
+  function orderDelivery() {
+    if (
+      (userData.role === rols.yetkazuvchi && !orderDetail.done) ||
+      (userData.role === rols.admin && orderDetail.done) ||
+      userData.role === rols.superAdmin
+    ) {
+      let worker = {};
+      if (userData.role === rols.yetkazuvchi) {
+        worker = userData.fullName;
+      }
+      doneOrder(orderId, orderDetail, worker);
     }
   }
+  const deleteOrder = () => {
+    doneOrder(orderId, {});
+  };
 
   return (
     <TableRowWrapper className="row">
-      {Object.entries(orderDetail).map(([label, info]) => {
+      {Object.entries(orderDetail).map(([label, info], i) => {
         if (typeof info == "object") {
           return (
-            <div className="col-lg-3 col-md-6 p-0" key={label}>
+            <div key={i} className="col-lg-3 col-md-6 p-0" key={label}>
               <div class="form-floating">
                 <select
                   class="form-select"
@@ -75,7 +73,7 @@ const TableRow = ({ orderDetail, done }) => {
                 >
                   {Object.entries(info).map(([meal, amount], i) => {
                     return (
-                      <option value={meal}>
+                      <option key={meal + amount} value={meal}>
                         {meal} - {amount} ta
                       </option>
                     );
@@ -87,7 +85,7 @@ const TableRow = ({ orderDetail, done }) => {
           );
         }
         return (
-          <div className="col-lg-3 col-md-6 p-0" key={label}>
+          <div key={i + 0.4} className="col-lg-3 col-md-6 p-0" key={label}>
             <div className="form-floating mb-3">
               <input
                 value={info}
@@ -102,14 +100,25 @@ const TableRow = ({ orderDetail, done }) => {
           </div>
         );
       })}
-      <div className="col-lg-2 col-md-6 p-0">
-        <button
-          onClick={() => orderDelivery(done, orderDetail)}
-          className={`outlined-btn ${done ? "done" : ""} `}
-        >
-          Yetkazildi
-        </button>
-      </div>
+      {((userData.role === rols.yetkazuvchi && !orderDetail.done) ||
+        (userData.role === rols.admin && orderDetail.done) ||
+        userData.role === rols.superAdmin) && (
+        <div className="col-lg-2 col-md-6 p-0">
+          <button
+            onClick={orderDelivery}
+            className={`outlined-btn ${!orderDetail.done ? "done" : ""} `}
+          >
+            {orderDetail.done ? "Qaytarish" : "Yetkazildi"}
+          </button>
+        </div>
+      )}
+      {((userData.role === rols.admin || userData.role === rols.superAdmin) && orderDetail.done) && (
+        <div className="col-lg-2 col-md-6 p-0">
+          <button onClick={deleteOrder} className={`outlined-btn done`}>
+            O'chirish
+          </button>
+        </div>
+      )}
     </TableRowWrapper>
   );
 };
