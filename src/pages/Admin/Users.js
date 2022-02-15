@@ -44,7 +44,7 @@ export default function Users() {
   });
 
   return (
-    <UsersWrapper className="py-5">
+    <UsersWrapper className="table-cover d-flex flex-column pt-5" style={{ height: "90vh", overflow: 'auto' }}>
       {open && (
         <Modal open={open} setOpen={setOpen}>
           <ChooseUser edited={edited} data={chooseUser} />
@@ -112,7 +112,7 @@ const User = ({ user, func }) => {
       <td>{userData.email}</td>
       <td>
         <Button
-        variant="outlined" color="warning"
+          variant="outlined" color="warning"
           onClick={() => {
             func(userData);
           }}

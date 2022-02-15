@@ -63,6 +63,12 @@ const AdminWrapper = styled.section`
   .table-cover::-webkit-scrollbar {
     width: 0;
   }
+  .thead-sticky {
+    position: sticky;
+    top: -25px;
+    left: 0;
+    background: white;
+  }
   .header-icons:hover {
     cursor: pointer;
     color: black;

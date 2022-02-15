@@ -20,7 +20,7 @@ const Done = () => {
         <p className="text-secondary my-0 me-3">Jami summa: {summa} so'm</p>
       </div>
       <Table striped bordered size="sm" className="orders">
-        <thead>
+        <thead className="thead-sticky">
           <tr>
             <th>F.I.O</th>
             <th>Telefon</th>
