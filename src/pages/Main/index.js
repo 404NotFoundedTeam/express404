@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import {
   pushProductToKorzina,
 } from "../../firebase/functions";
+import AlertMini from "../../components/Alert";
 
 export default function Main() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Main() {
   const [open, setOpen] = useState(false);
   const [chooseProduct, setChooseProduct] = useState({});
   const [openKirish, setOpenKirish] = useState(true);
+  const [alertOpen, setAlertOpen] = useState(true)
 
   const categories = useSelector((state) => state.categories);
   const products = useSelector((state) => state.products);
@@ -57,6 +59,7 @@ export default function Main() {
 
   return (
     <Wrapper className="text-center">
+      {/* <AlertMini open={alertOpen} setOpen={setAlertOpen} text={"Nimadir lorem ipsum dolor sit"}/> */}
       {korzina.length > 0 && (
         <KorzinaMini
           price={korzina.reduce(
@@ -94,7 +97,7 @@ export default function Main() {
         />
       </Routes>
       <Wrapper className="text-center">
-        <Header onChange={() => {}} />
+        <Header setOpen={setOpenKirish} onChange={() => {}} />
         <main className="mt-4">
           <img
             src="/images/express.png"

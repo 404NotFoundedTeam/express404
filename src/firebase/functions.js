@@ -42,6 +42,7 @@ function signOutUser(callback = () => {}) {
   signOut(auth)
     .then(() => {
       callback(true);
+      window.location.reload(true)
       console.log("user Chiqib ketti");
     })
     .catch(() => {
@@ -176,14 +177,6 @@ const setKorzinaProduct = (data, id, uid) => {
     .catch((err) => console.log(err));
 };
 
-function send() {
-  console.log(auth.currentUser)
-  sendEmailVerification(auth.currentUser)
-  .then(() => {
-    alert("yuborildi")
-  });
-}
-
 //
 function doneOrder(orderId, data, worker) {
   console.log("edite done", data);
@@ -215,5 +208,4 @@ export {
   doneOrder,
   setUserData,
   signOutUser,
-  send,
 };

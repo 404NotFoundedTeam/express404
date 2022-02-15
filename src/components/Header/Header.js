@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderWrapper from "./HeaderWrapper";
 
-const Header = ({ ...props }) => {
+const Header = ({ setOpen, ...props }) => {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.userData);
@@ -34,12 +34,23 @@ const Header = ({ ...props }) => {
         </div>
         <div className="col-3">
           {(userData.uid && (
-            <button onClick={() => {navigate('/admin')}} className="styledBtn">
+            <button
+              onClick={() => {
+                navigate("/admin");
+              }}
+              className="styledBtn"
+            >
               <FontAwesomeIcon icon="fa-solid fa-circle-user" />
               {userData.fullName}
             </button>
           )) || (
-            <button className="styledBtn" onClick={() => {navigate('/signin')}}>
+            <button
+              className="styledBtn"
+              onClick={() => {
+                setOpen(true);
+                navigate("/signin");
+              }}
+            >
               <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
               Kirish
             </button>

@@ -14,7 +14,7 @@ import Korzina from "./pages/Kirzina";
 import OrdersContext from "./contexts/OrdersContext";
 import Profile from "./pages/Admin/Profile";
 
-import { getCategories, getProducts, isSignIn, send } from "./firebase/functions";
+import { getCategories, getProducts, isSignIn } from "./firebase/functions";
 import { useDispatch, useSelector } from "react-redux";
 import Users from "./pages/Admin/Users";
 
@@ -30,9 +30,6 @@ function App() {
   const userData = useSelector((state) => state.userData);
   const rols = useSelector((state) => state.rols);
 
-  useEffect(() => {
-send()
-  }, userData)
   return (
     <OrdersContext.Provider value={{ orders, setOrders, done, setDone }}>
       <GlobalStyle />
