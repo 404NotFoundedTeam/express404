@@ -53,12 +53,15 @@ const AdminWrapper = styled.section`
   main {
     width: 100%;
     header {
-      padding: 20px;
+      padding: 10px 20px;
       position: absolute;
       top: 0;
       width: 100%;
       background: white;
     }
+  }
+  .table-cover::-webkit-scrollbar {
+    width: 0;
   }
   .header-icons:hover {
     cursor: pointer;

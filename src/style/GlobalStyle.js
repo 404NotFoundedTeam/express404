@@ -68,6 +68,10 @@ html{
     .active{
         background: #FFEC00;
     }
+    .orders td, .orders th {
+        text-align: center;
+        vertical-align: middle;
+    }
 
 `;
 
