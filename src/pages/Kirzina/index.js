@@ -86,15 +86,15 @@ const Korzina = () => {
   const [comment, setComment] = useState("");
   const submitOrder = () => {
     const order = {
-      "To'liq ismi": userData.fullName,
-      Taomlar: {},
-      Izoh: comment,
-      "Telefon raqami": userData.phone,
-      Summasi: sum,
+      fullName: userData.fullName,
+      phone: userData.phone,
+      comment,
+      products: {},
+      sum,
       done: false,
-      Vaqti: new Date().toLocaleDateString() + " " +  new Date().toLocaleTimeString(),
+      time: new Date().toLocaleDateString() + " " +  new Date().toLocaleTimeString(),
     };
-    korzina.map((item) => (order["Taomlar"][item.name] = item.soni));
+    korzina.map((item) => (order["products"][item.name] = item.soni));
 
     pushOrder(order);
     alert("Zakaz qabul qilindi!");
