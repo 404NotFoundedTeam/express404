@@ -50,7 +50,7 @@ const Admin = () => {
             <Link
               className={`admin-link ${
                 active.slice(-1) == "users" ? "active" : ""
-              }`}
+              } ${role === rols.user ? "d-none" : ""}`}
               to="users"
             >
               <FontAwesomeIcon className="admin-list-icon" icon={faUsers} />
